@@ -22,8 +22,7 @@ CREATE TABLE IF NOT EXISTS `intranet_groupomania`.`Users` (
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `pseudo` VARCHAR(50) NULL DEFAULT NULL,
-  `avatar` VARCHAR(255) NULL DEFAULT NULL,
-  `position` VARCHAR(5) NULL DEFAULT 'user',
+  `is_admin` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB
@@ -37,33 +36,16 @@ CREATE TABLE IF NOT EXISTS `intranet_groupomania`.`Posts` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `content` TEXT NOT NULL,
   `likes` INT NULL,
-  `dislikes` INT NULL,
-  `postedAt` DATETIME NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `intranet_groupomania`.`Users_Posts`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `intranet_groupomania`.`Users_Posts` (
+  `posted_at` DATETIME NOT NULL,
   `user_id` INT NOT NULL,
-  `post_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `post_id`),
-  INDEX `fk_Users_has_Posts_Posts1_idx` (`post_id` ASC),
-  INDEX `fk_Users_has_Posts_Users_idx` (`user_id` ASC),
-  CONSTRAINT `fk_Users_has_Posts_Users`
+  PRIMARY KEY (`id`, `user_id`),
+  INDEX `fk_Posts_Users1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_Posts_Users1`
     FOREIGN KEY (`user_id`)
     REFERENCES `intranet_groupomania`.`Users` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Users_has_Posts_Posts1`
-    FOREIGN KEY (`post_id`)
-    REFERENCES `intranet_groupomania`.`Posts` (`id`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -72,54 +54,23 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `intranet_groupomania`.`Comments` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `content` VARCHAR(255) NOT NULL,
-  `postedAt` DATETIME NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `intranet_groupomania`.`Comments_Posts`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `intranet_groupomania`.`Comments_Posts` (
-  `comment_id` INT NOT NULL,
+  `posted_at` DATETIME NOT NULL,
   `post_id` INT NOT NULL,
-  PRIMARY KEY (`comment_id`, `post_id`),
-  INDEX `fk_Comments_has_Posts_Posts1_idx` (`post_id` ASC),
-  INDEX `fk_Comments_has_Posts_Comments1_idx` (`comment_id` ASC),
-  CONSTRAINT `fk_Comments_has_Posts_Comments1`
-    FOREIGN KEY (`comment_id`)
-    REFERENCES `intranet_groupomania`.`Comments` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Comments_has_Posts_Posts1`
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `post_id`, `user_id`),
+  INDEX `fk_Comments_Posts1_idx` (`post_id` ASC),
+  INDEX `fk_Comments_Users1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_Comments_Posts1`
     FOREIGN KEY (`post_id`)
     REFERENCES `intranet_groupomania`.`Posts` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `intranet_groupomania`.`Users_Comments`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `intranet_groupomania`.`Users_Comments` (
-  `users_id` INT NOT NULL,
-  `comment_id` INT NOT NULL,
-  PRIMARY KEY (`users_id`, `comment_id`),
-  INDEX `fk_Users_has_Comments_Comments1_idx` (`comment_id` ASC),
-  INDEX `fk_Users_has_Comments_Users1_idx` (`users_id` ASC),
-  CONSTRAINT `fk_Users_has_Comments_Users1`
-    FOREIGN KEY (`users_id`)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Comments_Users1`
+    FOREIGN KEY (`user_id`)
     REFERENCES `intranet_groupomania`.`Users` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Users_has_Comments_Comments1`
-    FOREIGN KEY (`comment_id`)
-    REFERENCES `intranet_groupomania`.`Comments` (`id`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
