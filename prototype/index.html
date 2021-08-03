@@ -16,8 +16,8 @@
         <img src="assets/icon-left-font-monochrome-white.svg" width="250" height="100" class="d-inline-block align-top" alt="Groupomania logo">
       </a>
       <nav class="my-2 my-0 mr3">
-        <button type="button" class="btn btn-outline-light">Mon profil</button>
-        <button type="button" class="btn btn-outline-light">Déconnexion</button>
+        <button type="button" class="btn btn-outline-light"><a href="profile.html">Mon profil</a></button>
+        <button type="button" class="btn btn-outline-light"><a href="login.html">Déconnexion</a></button>
       </nav>
     </header>
 
@@ -30,14 +30,35 @@
 
     <div class="container-fluid pb-4">
       <div class="row">
+        <div class="col col-sm-1"></div>
+        <div class="col col-sm-10"> 
+          <!-- Post -->
+          <div class="card border-danger">
+            <div class="card-header bg-danger text-white">Nouvelle annonce</div>
+            <form>
+              <div class="card-body">
+                <div class="input-group pb-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Commentaire</span>
+                  </div>
+                  <textarea class="form-control" aria-label="Nouveau commentaire"></textarea>
+                </div>
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="addImage">
+                    <label class="custom-file-label" for="addImage">Choisissez une image</label>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button type="button" class="btn btn-outline-info">Partager</button>
+              </div>
+            </form>
+          </div>
 
-        <!-- Secondary section -->
-        <div class="col col-md-5"> 
-          <h2 class="text-success py-3">Les + populaires</h2>
-          
-          <!-- Card text -->
-          <div class="card border-success my-3">
-            <div class="card-header border-success bg-dark">
+          <!-- Card -->
+          <div class="card border-info my-4">
+            <div class="card-header border-info bg-dark">
               <div class="d-flex flex-row align-items-center">
                 <div class="mr-2">
                   <img src="assets/icon-above-font.png" alt="user" class="rounded-circle" width="65">
@@ -48,89 +69,26 @@
                 </div>
               </div>
             </div>
-            <a href="#"> <!-- Link to details -->
+            <a href="post.html"> <!-- Link to details -->
               <div class="card-body">
                 <p class="card-text text-dark text-decoration-none">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et amet consectetur incidunt magnam, ut id nemo recusandae modi illo ea enim! Adipisci esse facilis, odit nesciunt aut vero nemo earum.</p>
               </div>
             </a>
-            <div class="card-footer border-success bg-white">
+            <div class="card-footer border-info bg-white">
               <div class="d-flex flex-row align-items-center">
                 <div class="mr-2">
                   <p class="card-text mr-0"> 20 <button type="button" class="btn btn-link btn-sm">J'aime</button></p> 
                 </div>
                 <div class="ml-3">
-                  <p class="card-text mr-0"> 2 <button type="button" class="btn btn-link btn-sm">Commentaires</button></p>   <!-- Link to comments -->
+                  <p class="card-text mr-0"> 2 Commentaires</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Card image -->
-          <div class="card border-success my-3">
-            <div class="card-header border-success bg-dark">
-              <div class="d-flex flex-row align-items-center">
-                <div class="mr-2">
-                  <img src="assets/icon-left-font.png" alt="user" class="rounded-circle" width="65">
-                </div>
-                <div class="ml-2">
-                  <div class="font-weight-bold m-0 text-white">Jean Lemaire</div>
-                  <p class="card-text"><small class="text-white">30 juillet 2021 à 01h03</small></p>
-                </div>
-              </div>
-            </div>
-            <a href="#">  <!-- Link to details -->
-              <div class="card-body">
-                <img class="img-fluid" src="assets/icon-left-font-monochrome-black.png" alt="image test">
-              </div>
-            </a>
-            <div class="card-footer border-success bg-white">
-              <div class="d-flex flex-row align-items-center">
-                <div class="mr-2">
-                  <p class="card-text mr-0"> 2 <button type="button" class="btn btn-link btn-sm">J'aime</button></p> 
-                </div>
-                <div class="ml-3">
-                  <p class="card-text mr-0"> 13 <button type="button" class="btn btn-link btn-sm">Commentaires</button></p>   <!-- Link to details -->
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Primary section -->
-        <div class="col col-md-7"> 
-
-          <!-- Post -->
-          <div class="card border-danger">
-            <div class="card-header bg-danger text-white">Nouvelle annonce</div>
-            <form>
-              <div class="card-body">
-  
-                <div class="input-group pb-2">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Commentaire</span>
-                  </div>
-                  <textarea class="form-control" aria-label="Nouveau commentaire"></textarea>
-                </div>
-  
-                <div class="input-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="addImage">
-                    <label class="custom-file-label" for="addImage">Choisissez une image</label>
-                  </div>
-                </div>
-  
-              </div>
-              <div class="card-footer">
-                <button type="button" class="btn btn-outline-info">Partager</button>
-              </div>
-            </form>
-
-          </div>
-
-          <!-- Card image -->
-          <div class="card border-info my-3">
-            <div class="card-header border-info bg-secondary">
+          <div class="card border-info my-4">
+            <div class="card-header border-info bg-dark">
               <div class="d-flex flex-row align-items-center">
                 <div class="mr-2">
                   <img src="assets/icon-above-font.png" alt="user" class="rounded-circle" width="65">
@@ -141,7 +99,7 @@
                 </div>
               </div>
             </div>
-            <a href="#">  <!-- Link to details -->
+            <a href="post.html">  <!-- Link to details -->
               <div class="card-body">
                 <img class="img-fluid" src="assets/icon-above-font.png" alt="image test">
               </div>
@@ -152,15 +110,15 @@
                   <p class="card-text mr-0"> 1 <button type="button" class="btn btn-link btn-sm">J'aime</button></p> 
                 </div>
                 <div class="ml-3">
-                  <p class="card-text mr-0"> 34 <button type="button" class="btn btn-link btn-sm">Commentaires</button></p>   <!-- Link to details -->
+                  <p class="card-text mr-0"> 34 Commentaires</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Card text -->
-          <div class="card border-info my-3">
-            <div class="card-header border-info bg-secondary">
+          <div class="card border-info my-4">
+            <div class="card-header border-info bg-dark">
               <div class="d-flex flex-row align-items-center">
                 <div class="mr-2">
                   <img src="assets/icon-above-font.png" alt="user" class="rounded-circle" width="65">
@@ -171,7 +129,7 @@
                 </div>
               </div>
             </div>
-            <a href="#"> <!-- Link to details -->
+            <a href="post.html"> <!-- Link to details -->
               <div class="card-body">
                 <p class="card-text text-dark text-decoration-none">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et amet consectetur incidunt magnam, ut id nemo recusandae modi illo ea enim! Adipisci esse facilis, odit nesciunt aut vero nemo earum.</p>
               </div>
@@ -182,15 +140,15 @@
                   <p class="card-text mr-0"> 10 <button type="button" class="btn btn-link btn-sm">J'aime</button></p> 
                 </div>
                 <div class="ml-3">
-                  <p class="card-text mr-0"> 12 <button type="button" class="btn btn-link btn-sm">Commentaires</button></p>   <!-- Link to comments -->
+                  <p class="card-text mr-0"> 12 Commentaires</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Card text -->
-          <div class="card border-info my-3">
-            <div class="card-header border-info bg-secondary">
+          <div class="card border-info my-4">
+            <div class="card-header border-info bg-dark">
               <div class="d-flex flex-row align-items-center">
                 <div class="mr-2">
                   <img src="assets/icon-above-font.png" alt="user" class="rounded-circle" width="65">
@@ -201,7 +159,7 @@
                 </div>
               </div>
             </div>
-            <a href="#"> <!-- Link to details -->
+            <a href="post.html"> <!-- Link to details -->
               <div class="card-body">
                 <p class="card-text text-dark text-decoration-none">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et amet consectetur incidunt magnam, ut id nemo recusandae modi illo ea enim! Adipisci esse facilis, odit nesciunt aut vero nemo earum.</p>
               </div>
@@ -212,14 +170,13 @@
                   <p class="card-text mr-0"> 10 <button type="button" class="btn btn-link btn-sm">J'aime</button></p> 
                 </div>
                 <div class="ml-3">
-                  <p class="card-text mr-0"> 12 <button type="button" class="btn btn-link btn-sm">Commentaires</button></p>   <!-- Link to comments -->
+                  <p class="card-text mr-0"> 12 Commentaires</p>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-
+        <div class="col col-sm-1"></div>
       </div>
     </div>
     
