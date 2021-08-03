@@ -21,8 +21,9 @@ CREATE TABLE IF NOT EXISTS `intranet_groupomania`.`Users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `pseudo` VARCHAR(50) NULL DEFAULT NULL,
   `is_admin` TINYINT(1) NOT NULL DEFAULT 0,
+  `pseudo` VARCHAR(50) NULL DEFAULT NULL,
+  `updated_at` DATETIME NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB
@@ -35,8 +36,9 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `intranet_groupomania`.`Posts` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `content` TEXT NOT NULL,
-  `likes` INT NULL,
   `posted_at` DATETIME NOT NULL,
+  `likes` INT NULL,
+  `users_like` MEDIUMTEXT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`, `user_id`),
   INDEX `fk_Posts_Users1_idx` (`user_id` ASC),
