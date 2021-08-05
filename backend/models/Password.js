@@ -1,4 +1,4 @@
-const passwordValidator = require('password-validator');
+const passwordValidator = require('password_validator');
 
 const passwordModel = new passwordValidator();
 // properties to be fullfilled
