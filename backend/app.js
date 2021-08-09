@@ -1,12 +1,10 @@
 const express = require('express');
 const helmet = require('helmet');
 const nocache = require("nocache");
-const path = require('path');
 
-// TODO import routes
-const db = require('./database/db_config');
 
 // MySQL DB connection
+const db = require('./database/db_config');
 db.sequelize.sync()
   .then( () => { console.log('Correct sync with database.') })
   .catch(error => { console.error('Problem with sync: ', error) });
@@ -25,8 +23,9 @@ app.use((req, res, next) => {
   next();
 })
 
-// Middleware able to access the client request by req.body
+// Middleware able to access the client request by JSON, urlencoded data and multipart
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Security booster
 app.use(helmet());
@@ -36,6 +35,11 @@ app.use(nocache());
 
 // TODO Middleware to handle static images
 
-// TODO API routes
+// API routes
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
+
+app.use('/api', userRoutes);
+app.use('/api', postRoutes);
 
 module.exports = app;
