@@ -1,6 +1,8 @@
 const dotenv = require('dotenv').config();
 const Sequelize = require('sequelize');
 
+
+// DB connection
 const sequelize = new Sequelize(
   process.env.DATABASE, 
   process.env.USER, 
@@ -19,11 +21,11 @@ db.sequelize = sequelize;
 // import models
 db.user = require('../models/User')(sequelize, Sequelize);
 db.post = require('../models/Post')(sequelize, Sequelize);
-db.reaction = require('../models/Reaction')(sequelize, Sequelize);
+db.opinion = require('../models/Opinion')(sequelize, Sequelize);
 
 // Associations
-db.post.hasOne(db.user);
-db.reaction.hasOne(db.user);
-db.reaction.hasOne(db.post);
+db.post.belongsTo(db.user, { foreignKey: 'userId' });
+db.opinion.belongsTo(db.user, { foreignKey: 'userId' });
+db.opinion.belongsTo(db.post, { foreignKey: 'postId' });
 
 module.exports = db;

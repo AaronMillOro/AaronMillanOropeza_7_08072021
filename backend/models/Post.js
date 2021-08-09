@@ -6,17 +6,29 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+    text: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     likes: {
       type: DataTypes.INTEGER,
-      defaultValue: 0,
+      defaultValue: 0
     },
-    users_like: {
+    usersLike: {
       type: DataTypes.STRING,
       allowNull: true
+    }, 
+    userId: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      references: {
+        model: 'Users',
+        key: 'id'
+      }
     }
   })
 };

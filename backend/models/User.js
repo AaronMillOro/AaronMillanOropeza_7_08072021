@@ -18,10 +18,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: 'Nouveau utilisateur'
     }, 
-      is_admin: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false, 
-        defaultValue: false
+    job: {
+      type: DataTypes.STRING,
+      defaultValue: 'Poste de travail'
+    }, 
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false, 
+      defaultValue: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     }
+  }, {
+    timestamps: false
   })
 };
