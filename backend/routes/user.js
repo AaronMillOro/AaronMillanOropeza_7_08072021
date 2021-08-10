@@ -12,6 +12,6 @@ const auth = require('../middleware/authorization');
 router.post('/auth/signup', entryValidator, uniqueEmail, passwordValidator, userCtrl.signup);
 router.post('/auth/login', entryValidator, userCtrl.login);
 router.get('/account/:id', auth, userCtrl.account);
-//router.put('/account/:id', auth, userCtrl.updateAccount);
+router.put('/account/:id', auth, userCtrl.updateAccount);
 
 module.exports = router;
