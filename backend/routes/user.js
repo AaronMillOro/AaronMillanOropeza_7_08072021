@@ -13,6 +13,7 @@ const uniqueEmail = require('../middleware/unique_email');
 
 // User routes
 router.post('/auth/signup', entryValidator, uniqueEmail, passwordValidator, userCtrl.signup);
+router.post('/auth/login', entryValidator, userCtrl.login);
 
 
 module.exports = router;
