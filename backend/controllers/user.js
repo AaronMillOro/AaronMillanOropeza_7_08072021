@@ -24,7 +24,7 @@ exports.signup = (req, res, next) => {
 
 
 exports.login = (req, res, next) => {
-  User.findOne({ where: { email: req.body.email }, attributes: ['id', 'email', 'password'] })
+  User.findOne({ where: { email: req.body.email }, attributes: ['id', 'email', 'password', 'isAdmin'] })
     .then(user => {
       if (!user){
         return res.status(404).json({ error: 'User not found'});
@@ -38,10 +38,18 @@ exports.login = (req, res, next) => {
           // Returns the userID + a jwt with userId
           res.status(200).json({
             userId: user.id,
-            token: jwt.sign({ userId: user.id }, process.env.SECRET_KEY, { expiresIn: '2h' })
+            token: jwt.sign({ userId: user.id, isAdmin: user.isAdmin }, process.env.SECRET_KEY, { expiresIn: '2h' }),
           });
         })
         .catch(error => res.status(401).json({ error }));
     })
     .catch(error => res.status(404).json({ error }));
+};
+
+
+// updateAccount
+exports.account = (req, res, next) => {
+  
+  console.log(req.body)
+  
 };
