@@ -47,9 +47,21 @@ exports.login = (req, res, next) => {
 };
 
 
-// updateAccount
+// access user account
 exports.account = (req, res, next) => {
-  
-  console.log(req.body)
-  
+  if ( req.body.userId !== parseInt(req.params.id) ) {
+    return res.status(401).json({error: 'Unauthorized request'});
+  }
+  // console.log(req.body);
+  User.findOne({ 
+    where: { id: req.params.id }, 
+    attributes: ['id', 'email', 'pseudo', 'job', 'createdAt'] 
+  })
+    .then(user => {
+      if (!user){
+        return res.status(404).json({ error: 'User not found'});
+      }
+      res.status(200).json({ user })
+    })
+    .catch(error => res.status(404).json({ error }));
 };

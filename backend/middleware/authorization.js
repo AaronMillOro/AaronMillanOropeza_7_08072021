@@ -16,7 +16,8 @@ module.exports = (req, res, next) => {
     else if( req.body.userId !== decodedToken.userId ) {
       return res.status(403).json({error: 'Non-valid userId'});
     } else {
-      console.log('Auth control passed')
+      res.userId = decodedToken.userId;
+      console.log('Auth control passed');
       next();
     }
   } catch (error) {
