@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const nocache = require("nocache");
+const path = require('path');
 
 
 // MySQL DB connection
@@ -33,7 +34,8 @@ app.use(helmet());
 // Middleware to disable some cache from client by changing some HTTP headers
 app.use(nocache());
 
-// TODO Middleware to handle static images
+// Middleware to handle static images
+app.use('/img', express.static(path.join(__dirname, 'img')));
 
 // API routes
 const userRoutes = require('./routes/user');

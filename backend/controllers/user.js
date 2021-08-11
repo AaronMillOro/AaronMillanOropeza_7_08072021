@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const { user } = require('../database/db_config');
 const dotenv = require('dotenv').config();
 
 const db = require('../database/db_config');
@@ -55,16 +55,15 @@ exports.account = (req, res, next) => {
   if ( req.body.userId !== parseInt(req.params.id) ) {
     return res.status(401).json({error: 'Unauthorized request'});
   }
-  // console.log(req.body);
   User.findOne({ 
     where: { id: req.params.id }, 
-    attributes: ['id', 'email', 'pseudo', 'job', 'createdAt'] 
+    attributes: ['id', 'email', 'pseudo', 'job', 'imageUrl', 'createdAt'] 
   })
     .then(user => {
       if (!user){
         return res.status(404).json({ error: 'User not found'});
       }
-      res.status(200).json({ userId: user.id, user: user })
+      res.status(200).json({ user: user })
     })
     .catch(error => res.status(404).json({ error }));
 };
@@ -72,30 +71,22 @@ exports.account = (req, res, next) => {
 
 // PUT modify user account data
 exports.updateAccount = (req, res, next) => {
-  if ( req.body.userId !== parseInt(req.params.id) ) {
-    return res.status(401).json({error: 'Unauthorized request'});
-  }
   User.findOne({ 
     where: { id: req.params.id }, 
-    attributes: ['id', 'email', 'pseudo', 'job', 'createdAt'] 
+    attributes: ['id', 'email', 'pseudo', 'job', 'imageUrl','createdAt'] 
   })
     .then(user => {
       if (!user){
         return res.status(404).json({ error: 'User not found'});
       }
-      // checks allowed fields
-      if ( (!req.body.pseudo) || (!req.body.job) ) {
-        return res.status(400).json({ error: 'Required fields: pseudo and job' });
-      }
-      // TODO Image handler
-      // Update non-image fields
-      User.update(
-        {
-          pseudo: req.body.pseudo,
-          job: req.body.job
-        }, {
-          where: { id: req.params.id } 
-        })
+      const form_data = req.file ? 
+        { ...JSON.parse(req.body), 
+          imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}` 
+        } : { 
+          ...req.body
+        }; // only job, pseudo and/or image
+        console.log({...JSON.parse(req.body)});
+      User.update({ ...form_data }, { where: {id: user.id} })
         .then(res.status(200).json({ userId: user.id, message: 'User data updated' }) )
         .catch(error => res.status(404).json({ error }));
     })
