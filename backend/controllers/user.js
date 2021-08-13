@@ -79,16 +79,39 @@ exports.updateAccount = (req, res, next) => {
       if (!user){
         return res.status(404).json({ error: 'User not found'});
       }
-      const form_data = req.file ? 
-        { ...JSON.parse(req.body), 
-          imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}` 
-        } : { 
-          ...req.body
-        }; // only job, pseudo and/or image
-        console.log({...JSON.parse(req.body)});
+      const form_data = { ...req.body };
       User.update({ ...form_data }, { where: {id: user.id} })
-        .then(res.status(200).json({ userId: user.id, message: 'User data updated' }) )
+        .then(res.status(200).json({ userId: user.id, message: 'User data updated' }))
         .catch(error => res.status(404).json({ error }));
+    })
+    .catch(error => res.status(404).json({ error }));
+};
+
+
+// POST modify user avatar
+exports.updateAvatar = (req, res, next) => {
+  console.log(req.params);
+  User.findOne({ 
+    where: { id: req.params.id }, 
+    attributes: ['id', 'imageUrl'] 
+  })
+    .then(user => {
+      console.log(user);
+      if (!user){
+        return res.status(404).json({ error: 'User not found'});
+      }
+      if (!req.file) {
+        return res.status(400).json({ error: 'Provide an image'});
+      }
+      // To delete a previous image
+      const oldImg = user.imageUrl.split('/img/')[1];
+      fs.unlink('img/' + oldImg, () => {
+        const new_imageUrl = `${req.protocol}://${req.get('host')}/img/${req.file.filename}`;
+        console.log(new_imageUrl);
+        User.update({ imageUrl: new_imageUrl }, { where: {id: user.id} })
+          .then(res.status(200).json({ userId: user.id, message: 'User image updated' }))
+          .catch(error => res.status(404).json({ error }));
+      });
     })
     .catch(error => res.status(404).json({ error }));
 };

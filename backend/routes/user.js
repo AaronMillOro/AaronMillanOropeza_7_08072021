@@ -14,6 +14,7 @@ router.post('/auth/signup', entryValidator, uniqueEmail, passwordValidator, user
 router.post('/auth/login', entryValidator, userCtrl.login);
 router.get('/account/:id', auth, userCtrl.account);
 router.put('/account/:id', auth, multer, userCtrl.updateAccount);
+router.put('/account/:id/avatar', multer, userCtrl.updateAvatar); // add auth upon integration
 
 
 module.exports = router;

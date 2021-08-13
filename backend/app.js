@@ -35,7 +35,7 @@ app.use(helmet());
 app.use(nocache());
 
 // Middleware to handle static images
-app.use('/img', express.static(path.join(__dirname, 'img')));
+app.use('/img', express.static(path.join(__dirname, './img')));
 
 // API routes
 const userRoutes = require('./routes/user');
