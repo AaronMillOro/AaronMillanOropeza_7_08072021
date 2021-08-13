@@ -90,28 +90,34 @@ exports.updateAccount = (req, res, next) => {
 
 // POST modify user avatar
 exports.updateAvatar = (req, res, next) => {
-  console.log(req.params);
   User.findOne({ 
     where: { id: req.params.id }, 
     attributes: ['id', 'imageUrl'] 
   })
     .then(user => {
-      console.log(user);
       if (!user){
         return res.status(404).json({ error: 'User not found'});
       }
       if (!req.file) {
         return res.status(400).json({ error: 'Provide an image'});
       }
-      // To delete a previous image
-      const oldImg = user.imageUrl.split('/img/')[1];
-      fs.unlink('img/' + oldImg, () => {
-        const new_imageUrl = `${req.protocol}://${req.get('host')}/img/${req.file.filename}`;
-        console.log(new_imageUrl);
+      // To delete a previous image (if exists)
+      const new_imageUrl = `${req.protocol}://${req.get('host')}/img/${req.file.filename}`;
+      
+      if (user.imageUrl == null) {
         User.update({ imageUrl: new_imageUrl }, { where: {id: user.id} })
           .then(res.status(200).json({ userId: user.id, message: 'User image updated' }))
           .catch(error => res.status(404).json({ error }));
-      });
+
+      } else { 
+        const oldImg = user.imageUrl.split('/img/')[1];
+        fs.unlink('img/' + oldImg, () => {
+          User.update({ imageUrl: new_imageUrl }, { where: {id: user.id} })
+            .then(res.status(200).json({ userId: user.id, message: 'User image updated' }))
+            .catch(error => res.status(404).json({ error }));
+        });
+      }
+
     })
     .catch(error => res.status(404).json({ error }));
 };
