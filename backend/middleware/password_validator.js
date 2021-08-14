@@ -1,4 +1,4 @@
-const passwordRules = require('../models/Password');
+const passwordRules = require('../models/password');
 
 module.exports = (req, res, next) => {
   try {
