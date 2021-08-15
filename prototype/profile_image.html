@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Groupomania | Espace utilisateur</title>
+    <title>Groupomania | Espace utilisateur | Image du profil</title>
     <meta name="description" content="Groupomania intranet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -16,6 +16,7 @@
         <img src="assets/icon-left-font-monochrome-white.svg" width="250" height="100" class="d-inline-block align-top" alt="Groupomania logo">
       </a>
       <nav class="my-2 my-0 mr3">
+        <button type="button" class="btn btn-outline-light"><a href="profile.html">Mon profil</a></button>
         <button type="button" class="btn btn-outline-light"><a href="index.html">Actualités</a></button>
         <button type="button" class="btn btn-outline-light"><a href="login.html">Déconnexion</a></button>
       </nav>
@@ -24,46 +25,31 @@
     <!-- Content -->
     <div class="container py-2">
       <div class="row justify-content-center"> 
-        <h1 class="text-info py-2">Mon profil</h1>
+        <h1 class="text-info py-2">Image du profil</h1>
       </div>
     </div>
+
     <div class="container pb-5">
       <div class="row justify-content-md-center">
-        
-        <div class="col col-md-3 card"> 
-          <img class="card-img-top" src="./assets/icon-left-font.png" alt="profile image">
-          <div class="card-body">
-            <a href="profile_image.html" class="card-link">Modifier image</a>
-          </div>
-        </div>
-
+        <div class="col col-md-2"> </div>
         <div class="col-md-auto card">  
           <form>
 
-            <div class="form-group row py-2">
-              <label for="username" class="col-sm-4 col-form-label">Nom à aficher</label>
-              <div class="col-sm-8">
-                <input type="username" class="form-control" id="username" placeholder="Nom d'utilisateur">
+            <div class="input-group py-2">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image">
+                <label class="custom-file-label" for="image">Image du profil</label>
               </div>
             </div>
-
-            <div class="form-group row py-2">
-              <label for="job" class="col-sm-4 col-form-label">Poste</label>
-              <div class="col-sm-8">
-                <input type="job" class="form-control" id="job" placeholder="Position dans l'entreprise">
-              </div>
-            </div>
-
-            <p class="py-2 text-center">Dernière actualisation le <b>02 août 2021</b></p>
 
             <div class="form-group row">
               <div class="col-sm-12">
-                <button type="submit" class="btn btn-outline-info btn-lg btn-block"><a href="index.html">Mettre à jour</a></button>
+                <button type="submit" class="btn btn-outline-info btn-lg btn-block"><a href="profile.html">Mettre à jour</a></button>
               </div>
             </div>
           </form>
         </div>
-        <div class="col col-md-1"> </div>
+        <div class="col col-md-2"> </div>
       </div>
     </div>
     
