@@ -14,7 +14,9 @@ exports.signup = (req, res, next) => {
     .then(hash => {
       const user = {
         email: req.body.email,
-        password: hash
+        password: hash,
+        job: 'Poste de travail',
+        pseudo: 'Nouveau utilisateur'
       };
       // Save entity into DB
       User.create(user)

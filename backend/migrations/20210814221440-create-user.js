@@ -18,12 +18,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       pseudo: {
-        defaultValue: 'Nouveau utilisateur',
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'Nouveau utilisateur'
       },
       job: {
+        type: Sequelize.STRING,
+        allowNull: false,
         defaultValue: 'Poste de travail',
-        type: Sequelize.STRING
       },
       imageUrl: {
         allowNull: true,
