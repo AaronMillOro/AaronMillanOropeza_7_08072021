@@ -1,7 +1,9 @@
 const db = require('../models/index');
 const Post = db.Post;
+const Opinion = db.Opinion;
 
 
+// GET all posts
 exports.allPosts = (req, res, next) => {
   Post.findAll()
     .then(posts => res.status(200).json(posts))
@@ -9,6 +11,7 @@ exports.allPosts = (req, res, next) => {
 };
 
 
+// POST new publication
 exports.createPost = (req, res, next) => {
   if (!req.body.text) {
     return res.status(400).json({ message: "Text field is required"});
@@ -26,4 +29,18 @@ exports.createPost = (req, res, next) => {
   Post.create(post)
     .then( res.status(201).json({ message: "New post" }) )
     .catch( error => res.status(422).json({ error }) );
+};
+
+
+// GET a specific publication and its related opinons
+exports.displayPost = (req, res, next) => {
+  Post.findOne({ where: {id: req.body.postId} })
+    .then(post => {
+      Opinion.findAll({ where: {postId: post.id} })
+        .then(opinions => {
+          res.status(200).json({ post: post, opinions: opinions })
+        })
+        .catch(error => res.status(404).json({ error }));
+    })
+    .catch(error => res.status(404).json({ error }));
 };
