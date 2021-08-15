@@ -17,9 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Opinion.init({
-    content: DataTypes.TEXT,
-    userId: DataTypes.BIGINT,
-    postId: DataTypes.BIGINT
+    content: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Opinion',
