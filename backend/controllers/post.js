@@ -16,10 +16,12 @@ exports.createPost = (req, res, next) => {
   const post = req.file ? {
     text: req.body.text,
     userId: req.body.userId,
+    likes: 0,
     imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`
   } : { 
     text: req.body.text,
-    userId: req.body.userId
+    userId: req.body.userId,
+    likes: 0
   };
   Post.create(post)
     .then( res.status(201).json({ message: "New post" }) )
