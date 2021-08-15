@@ -3,8 +3,8 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
 
-const db = require('../database/db_config');
-const User = db.user;
+const db = require('../models/index');
+const User = db.User;
 
 
 // POST account creation

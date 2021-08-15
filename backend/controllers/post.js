@@ -1,5 +1,5 @@
-const db = require('../database/db_config');
-const Post = db.post;
+const db = require('../models/index');
+const Post = db.Post;
 
 
 exports.allPosts = (req, res, next) => {

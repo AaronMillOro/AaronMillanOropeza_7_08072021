@@ -5,7 +5,7 @@ const path = require('path');
 
 
 // MySQL DB connection
-const db = require('./database/db_config');
+const db = require('./models/index');
 db.sequelize.sync()
   .then( () => { console.log('Correct sync with database.') })
   .catch(error => { console.error('Problem with sync: ', error) });
