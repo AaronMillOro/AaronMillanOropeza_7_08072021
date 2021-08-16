@@ -28,7 +28,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BIGINT,
         references: {
-          model: 'User',
+          model: 'Users',
           key: 'id'
         }
       },

@@ -16,7 +16,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BIGINT,
         references: {
-          model: 'User',
+          model: 'Users',
           key: 'id'
         }
       },
@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BIGINT,
         references: {
-          model: 'Post',
+          model: 'Posts',
           key: 'id'
         }
       },
