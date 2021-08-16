@@ -19,12 +19,10 @@ exports.createPost = (req, res, next) => {
   const post = req.file ? {
     text: req.body.text,
     userId: req.body.userId,
-    likes: 0,
     imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`
   } : { 
     text: req.body.text,
     userId: req.body.userId,
-    likes: 0
   };
   Post.create(post)
     .then( res.status(201).json({ message: "New post" }) )
@@ -32,7 +30,7 @@ exports.createPost = (req, res, next) => {
 };
 
 
-// GET a specific publication and its related opinons
+// GET a specific publication and its related opinions
 exports.displayPost = (req, res, next) => {
   Post.findOne({ where: {id: req.body.postId} })
     .then(post => {
@@ -43,4 +41,20 @@ exports.displayPost = (req, res, next) => {
         .catch(error => res.status(404).json({ error }));
     })
     .catch(error => res.status(404).json({ error }));
+};
+
+
+// POST creates an opinion associated to a publication
+exports.createOpinion = (req, res, next) => {
+  if (!req.body.content) {
+    return res.status(400).json({ message: "Content is required"});
+  }
+  const opinion = {
+    content: req.body.content,
+    userId: req.body.userId,
+    postId: req.body.postId
+  };
+  Opinion.create(opinion)
+    .then( res.status(201).json({ message: "New opinion" }) )
+    .catch( error => res.status(422).json({ error }) );
 };
