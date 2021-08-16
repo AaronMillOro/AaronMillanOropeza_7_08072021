@@ -44,6 +44,14 @@ exports.displayPost = (req, res, next) => {
 };
 
 
+// DELETE a publication
+exports.deletePost = (req, res, next) => {
+  Post.destroy({ where: {id: req.body.postId} })
+    .then(() => res.status(200).json({ message: 'Post removed succesfully' }))
+    .catch(error => res.status(400).json({ error }));
+};
+
+
 // DELETE an opinion
 exports.deleteOpinion = (req, res, next) => {
   Opinion.destroy({ where: {id: req.body.opinionId} })
