@@ -1,6 +1,7 @@
 const db = require('../models/index');
 const Post = db.Post;
 const Opinion = db.Opinion;
+const User = db.User;
 
 
 // GET all posts
@@ -32,9 +33,19 @@ exports.createPost = (req, res, next) => {
 
 // GET a specific publication and its related opinions
 exports.displayPost = (req, res, next) => {
-  Post.findOne({ where: {id: req.body.postId} })
+  Post.findOne({ 
+    where: {id: req.body.postId}, 
+    attributes: ["id", "text", "imageUrl", "likes", "usersLike", "createdAt", "userId"],
+    include: {model: User, attributes: ["id", "pseudo", "imageUrl"]}
+  })
     .then(post => {
-      Opinion.findAll({ where: {postId: post.id} })
+      Opinion.findAll({ 
+        where: {postId: post.id}, 
+        attributes: ["id", "content", "createdAt", "userId"],
+        include: {
+          model: User, attributes: ["id", "pseudo", "imageUrl"]
+        }
+      })
         .then(opinions => {
           res.status(200).json({ post: post, opinions: opinions })
         })
