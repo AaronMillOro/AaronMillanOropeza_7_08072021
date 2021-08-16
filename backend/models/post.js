@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     text: DataTypes.STRING,
     imageUrl: DataTypes.STRING,
     likes: DataTypes.INTEGER,
-    usersLike: DataTypes.STRING
+    usersLike: DataTypes.STRING,
+    countOpinions: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Post',

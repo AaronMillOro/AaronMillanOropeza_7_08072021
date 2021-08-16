@@ -24,6 +24,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING
       },
+      countOpinions: {
+        defaultValue: 0,
+        type: Sequelize.INTEGER
+      },
       userId: {
         allowNull: false,
         type: Sequelize.BIGINT,
