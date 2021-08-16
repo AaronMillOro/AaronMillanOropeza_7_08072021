@@ -6,7 +6,11 @@ const User = db.User;
 
 // GET all posts
 exports.allPosts = (req, res, next) => {
-  Post.findAll()
+  Post.findAll({ 
+    order: [['createdAt', 'DESC']],
+    attributes: ['id', 'text', 'imageUrl', 'createdAt','likes', 'userId'],
+    include: {model: User, attributes: ['id', 'pseudo', 'imageUrl']}
+  })
     .then(posts => res.status(200).json(posts))
     .catch(error => res.status(404).json({ error }));
 };
