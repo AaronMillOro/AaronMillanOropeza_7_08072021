@@ -41,6 +41,7 @@ exports.displayPost = (req, res, next) => {
     .then(post => {
       Opinion.findAll({ 
         where: {postId: post.id}, 
+        order: [['createdAt', 'ASC']],
         attributes: ['id', 'content', 'createdAt', 'userId'],
         include: {
           model: User, attributes: ['id', 'pseudo', 'imageUrl']
