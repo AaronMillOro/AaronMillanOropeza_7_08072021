@@ -17,7 +17,7 @@ ADD CONSTRAINT `Opinions_ibfk_1`
   FOREIGN KEY (`userId`)
   REFERENCES `intranet_groupomania`.`Users` (`id`)
   ON DELETE CASCADE
-  ON UPDATE RESTRICT;
+  ON UPDATE CASCADE;
 
 
 ALTER TABLE `intranet_groupomania`.`Opinions` 
@@ -27,4 +27,4 @@ ADD CONSTRAINT `Opinions_ibfk_2`
   FOREIGN KEY (`postId`)
   REFERENCES `intranet_groupomania`.`Posts` (`id`)
   ON DELETE CASCADE
-  ON UPDATE RESTRICT;
+  ON UPDATE CASCADE;
