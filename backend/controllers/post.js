@@ -15,7 +15,7 @@ exports.allPosts = (req, res, next) => {
 // POST new publication
 exports.createPost = (req, res, next) => {
   if (!req.body.text) {
-    return res.status(400).json({ message: "Text field is required"});
+    return res.status(400).json({ message: 'Text field is required'});
   }
   const post = req.file ? {
     text: req.body.text,
@@ -26,7 +26,7 @@ exports.createPost = (req, res, next) => {
     userId: req.body.userId,
   };
   Post.create(post)
-    .then( res.status(201).json({ message: "New post" }) )
+    .then( res.status(201).json({ message: 'New post' }) )
     .catch( error => res.status(422).json({ error }) );
 };
 
@@ -35,15 +35,15 @@ exports.createPost = (req, res, next) => {
 exports.displayPost = (req, res, next) => {
   Post.findOne({ 
     where: {id: req.body.postId}, 
-    attributes: ["id", "text", "imageUrl", "likes", "usersLike", "createdAt", "userId"],
-    include: {model: User, attributes: ["id", "pseudo", "imageUrl"]}
+    attributes: ['id', 'text', 'imageUrl', 'likes', 'usersLike', 'createdAt', 'userId'],
+    include: {model: User, attributes: ['id', 'pseudo', 'imageUrl']}
   })
     .then(post => {
       Opinion.findAll({ 
         where: {postId: post.id}, 
-        attributes: ["id", "content", "createdAt", "userId"],
+        attributes: ['id', 'content', 'createdAt', 'userId'],
         include: {
-          model: User, attributes: ["id", "pseudo", "imageUrl"]
+          model: User, attributes: ['id', 'pseudo', 'imageUrl']
         }
       })
         .then(opinions => {
@@ -74,7 +74,7 @@ exports.deleteOpinion = (req, res, next) => {
 // POST creates an opinion associated to a publication
 exports.createOpinion = (req, res, next) => {
   if (!req.body.content) {
-    return res.status(400).json({ message: "Content is required"});
+    return res.status(400).json({ message: 'Content is required'});
   }
   const opinion = {
     content: req.body.content,
@@ -82,6 +82,6 @@ exports.createOpinion = (req, res, next) => {
     postId: req.body.postId
   };
   Opinion.create(opinion)
-    .then( res.status(201).json({ message: "New opinion" }) )
+    .then( res.status(201).json({ message: 'New opinion' }) )
     .catch( error => res.status(422).json({ error }) );
 };

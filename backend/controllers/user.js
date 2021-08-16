@@ -18,7 +18,7 @@ exports.signup = (req, res, next) => {
       };
       // Save entity into DB
       User.create(user)
-        .then( res.status(200).json({ message: "New user registered !" }) )
+        .then( res.status(200).json({ message: 'New user registered !' }) )
         .catch( error => res.status(422).json({ error }) );
     })
     .catch(error => res.status(500).json( {error} ));
