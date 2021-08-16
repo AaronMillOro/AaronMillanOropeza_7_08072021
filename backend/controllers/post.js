@@ -44,6 +44,14 @@ exports.displayPost = (req, res, next) => {
 };
 
 
+// DELETE an opinion
+exports.deleteOpinion = (req, res, next) => {
+  Opinion.destroy({ where: {id: req.body.opinionId} })
+    .then(() => res.status(200).json({ message: 'Opinion deleted!' }))
+    .catch(error => res.status(400).json({ error }));
+};
+
+
 // POST creates an opinion associated to a publication
 exports.createOpinion = (req, res, next) => {
   if (!req.body.content) {
