@@ -71,7 +71,16 @@ exports.deletePost = (req, res, next) => {
 // DELETE an opinion
 exports.deleteOpinion = (req, res, next) => {
   Opinion.destroy({ where: {id: req.body.opinionId} })
-    .then(() => res.status(200).json({ message: 'Opinion deleted!' }))
+    .then(() => {
+      Post.findOne({ where: {id: req.body.postId} })
+        .then(post => {
+          const counter = (post.countOpinions - 1);
+          Post.update({ countOpinions: counter }, { where: {id: post.id} })
+            .then(res.status(200).json({ message: 'Opinion deleted!' }))
+            .catch( error => res.status(404).json({ error }) );
+        })
+        .catch(error => res.status(404).json({ error }));
+    })
     .catch(error => res.status(400).json({ error }));
 };
 
