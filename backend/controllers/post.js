@@ -8,7 +8,7 @@ const User = db.User;
 exports.allPosts = (req, res, next) => {
   Post.findAll({ 
     order: [['createdAt', 'DESC']],
-    attributes: ['id', 'text', 'imageUrl', 'createdAt','likes', 'userId'],
+    attributes: ['id', 'text', 'imageUrl', 'createdAt','likes', 'userId', 'countOpinions'],
     include: {model: User, attributes: ['id', 'pseudo', 'imageUrl']}
   })
     .then(posts => res.status(200).json(posts))
