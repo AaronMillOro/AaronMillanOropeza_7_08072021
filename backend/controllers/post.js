@@ -109,3 +109,36 @@ exports.createOpinion = (req, res, next) => {
     })
     .catch( error => res.status(422).json({ error }) );
 };
+
+
+// PUT like or dislike in a publication
+exports.likePost = (req, res, next) => {
+  try {
+    if (!req.body.postId){
+      return res.status(400).json({ message: 'Publication identifier is required'});
+    }
+    if ( (req.body.like === 1) || (req.body.like === 0) ){
+      Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'likes', 'usersLike'] })
+        .then(post => {
+          // check status of users preferences
+          let usersLike = post.usersLike; // for conditionals simplicity
+          let likes = post.likes;
+          if (!post.usersLike) {
+            let usersLike = [];
+            usersLike.push(req.body.userId);
+            likes += 1;
+          }
+          // Case to add like
+          // Case to remove like
+          Post.update({ usersLike: usersLike, likes: likes }, { where: {id: post.id} })
+            .then( res.status(200).json({ message: 'Post preference set' }) )
+            .catch( error => res.status(404).json({ error }) );
+        })
+        .catch(error => res.status(404).json({ error }));
+    } else {
+      return res.status(400).json({ message: 'Provide correct like value'});
+    }
+  } catch (error) {
+    res.status(400).json({ error })
+  }
+};
