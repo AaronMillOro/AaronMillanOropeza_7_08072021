@@ -39,7 +39,7 @@ exports.createPost = (req, res, next) => {
 exports.displayPost = (req, res, next) => {
   Post.findOne({ 
     where: {id: req.body.postId}, 
-    attributes: ['id', 'text', 'imageUrl', 'likes', 'usersLike', 'createdAt', 'userId'],
+    attributes: ['id', 'text', 'imageUrl', 'likes', 'usersLike', 'countOpinions', 'createdAt', 'userId'],
     include: {model: User, attributes: ['id', 'pseudo', 'imageUrl']}
   })
     .then(post => {
