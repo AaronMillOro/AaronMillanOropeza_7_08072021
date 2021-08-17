@@ -73,7 +73,7 @@ exports.account = (req, res, next) => {
 exports.updateAccount = (req, res, next) => {
   User.findOne({ 
     where: { id: req.params.id }, 
-    attributes: ['id', 'email', 'pseudo', 'job', 'imageUrl','createdAt'] 
+    attributes: ['id', 'email', 'pseudo', 'job', 'imageUrl','createdAt', 'isAdmin'] 
   })
     .then(user => {
       if (!user){
