@@ -87,6 +87,16 @@ exports.createOpinion = (req, res, next) => {
     postId: req.body.postId
   };
   Opinion.create(opinion)
-    .then( res.status(201).json({ message: 'New opinion' }) )
+    .then(() => {
+      // To update opinions counter in Post instances
+      Post.findOne({ where: {id: req.body.postId} })
+        .then(post => {
+          const counter = (post.countOpinions + 1);
+          Post.update({ countOpinions: counter }, { where: {id: post.id} })
+            .then( res.status(201).json({ message: 'New opinion' }) )
+            .catch( error => res.status(422).json({ error }) );
+        })
+        .catch(error => res.status(404).json({ error }));
+    })
     .catch( error => res.status(422).json({ error }) );
 };
