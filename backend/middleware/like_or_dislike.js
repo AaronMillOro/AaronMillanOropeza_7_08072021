@@ -6,11 +6,15 @@ module.exports = (req, res, next) => {
     Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'usersLike'] })
       .then(post => {
         const usersLike = JSON.parse(post.usersLike);
-        if(usersLike.includes(req.body.userId)){
+        if (usersLike === null) {
           res.locals.heart = "off_heart";
           next();
-        } else {
+        }
+        else if(usersLike.includes(req.body.userId)){
           res.locals.heart = "on_heart";
+          next();
+        } else {
+          res.locals.heart = "off_heart";
           next();
         }
       })
