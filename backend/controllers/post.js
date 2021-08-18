@@ -52,7 +52,7 @@ exports.displayPost = (req, res, next) => {
         }
       })
         .then(opinions => {
-          res.status(200).json({ post: post, opinions: opinions })
+          res.status(200).json({ post: post, heart: res.locals.heart, opinions: opinions })
         })
         .catch(error => res.status(404).json({ error }));
     })
