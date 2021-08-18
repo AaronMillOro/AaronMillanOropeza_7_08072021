@@ -120,19 +120,36 @@ exports.likePost = (req, res, next) => {
     if ( (req.body.like === 1) || (req.body.like === 0) ){
       Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'likes', 'usersLike'] })
         .then(post => {
-          // check status of users preferences
-          let usersLike = post.usersLike; // for conditionals simplicity
+          // first like
           let likes = post.likes;
-          if (!post.usersLike) {
-            let usersLike = [];
-            usersLike.push(req.body.userId);
+          if (post.usersLike === null) {
+            let arrayLikes = [];
+            arrayLikes.push(req.body.userId);
+            const new_usersLike = JSON.stringify(arrayLikes);
             likes += 1;
+            Post.update({ usersLike: new_usersLike, likes: likes }, { where: {id: post.id} })
+              .then( res.status(200).json({ message: 'Post preference set' }) )
+              .catch( error => res.status(404).json({ error }) );
+          } else {
+            let arrayLikes = JSON.parse(post.usersLike);
+            // Can dislike
+            if (arrayLikes.includes(req.body.userId)) {
+              arrayLikes = arrayLikes.filter(item => item !== req.body.userId);
+              const new_usersLike = JSON.stringify(arrayLikes);
+              likes -= 1;
+              Post.update({ usersLike: new_usersLike, likes: likes }, { where: {id: post.id} })
+                .then( res.status(200).json({ message: 'Post preference set' }) )
+                .catch( error => res.status(404).json({ error }) );
+            } else {
+              // Can like
+              arrayLikes.push(req.body.userId);
+              const new_usersLike = JSON.stringify(arrayLikes);
+              likes += 1;
+              Post.update({ usersLike: new_usersLike, likes: likes }, { where: {id: post.id} })
+                .then( res.status(200).json({ message: 'Post preference set' }) )
+                .catch( error => res.status(404).json({ error }) );
+            }
           }
-          // Case to add like
-          // Case to remove like
-          Post.update({ usersLike: usersLike, likes: likes }, { where: {id: post.id} })
-            .then( res.status(200).json({ message: 'Post preference set' }) )
-            .catch( error => res.status(404).json({ error }) );
         })
         .catch(error => res.status(404).json({ error }));
     } else {
