@@ -52,7 +52,15 @@ exports.displayPost = (req, res, next) => {
         }
       })
         .then(opinions => {
-          res.status(200).json({ post: post, heart: res.locals.heart, canDelete: res.locals.canDelete, opinions: opinions })
+          const fullOpinions = opinions; 
+          fullOpinions.forEach(opinion => {
+            if ((opinion.userId === req.body.userId) || (res.locals.canDelete === 'all')){
+              opinion.dataValues.canDelete = true;
+            } else {
+              opinion.dataValues.canDelete = false;
+            }
+          });
+          res.status(200).json({ post: post, heart: res.locals.heart, canDelete: res.locals.canDelete, opinions: fullOpinions })
         })
         .catch(error => res.status(404).json({ error }));
     })

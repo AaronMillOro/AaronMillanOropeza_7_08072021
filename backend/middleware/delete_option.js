@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     // all power
     if( decodedToken.isAdmin === true ) {
-      res.locals.canDelete = true;
+      res.locals.canDelete = 'all';
       console.log('Allowed to delete anything');
       next();
     } else {
