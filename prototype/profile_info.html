@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Groupomania | Information d'utilisateur </title>
+    <meta name="description" content="Groupomania intranet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+  </head>
+  <body class="bg-light">
+    <!-- Header -->
+    <nav class="navbar navbar-dark" style="background-color: #243447;">
+      <a class="navbar-brand" href="#">
+        <img src="assets/icon-left-font-monochrome-white.svg" width="250" height="100" class="d-inline-block align-top" alt="Groupomania logo">
+      </a>
+      <nav class="my-2 my-0 mr3">
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Actualités</a></button>
+        <button type="button" class="btn btn-outline-light"><a href="login.html">Déconnexion</a></button>
+      </nav>
+    </nav>
+
+    <!-- Content -->
+    <div class="container py-2">
+      <div class="row justify-content-center"> 
+        <h1 class="text-info py-2">Profil d'utilisateur</h1>
+      </div>
+    </div>
+    <div class="container pb-5">
+      <div class="row justify-content-md-center">
+        
+        <div class="col col-md-3 card"> 
+          <img class="card-img-top" src="./assets/icon-left-font.png" alt="profile image">
+        </div>
+
+        <div class="col-md-auto card">  
+          <p class="pt-3">Nom: Juan Perez </p>
+          <p>Poste: RH</p>
+          <p>Email: juan_perez@groupomania.com</p>
+          <p>Dernière actualisation le 02 août 2021</p>
+          <!-- Form only available for super users-->
+          <form>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-outline-danger btn-lg btn-block"><a href="index.html">Effacer compte</a></button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <div class="col col-md-1"> </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-secondary text-center pt-5">
+      <p class="text-white py-2">Mentions légales © 2021</p>
+      <p class="bg-dark text-white py-4">Groupomania intranet</p>
+    </footer>
+
+    <!-- Bootstrap JS crequirements  -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>  
+</html>
