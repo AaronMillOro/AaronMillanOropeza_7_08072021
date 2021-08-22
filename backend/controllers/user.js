@@ -118,3 +118,11 @@ exports.updateAvatar = (req, res, next) => {
     })
     .catch(error => res.status(404).json({ error }));
 };
+
+
+// DELETE an user account
+exports.deleteAccount = (req, res, next) => {
+  User.destroy({ where: {id: req.params.id} })
+    .then(() => res.status(200).json({ message: 'Account removed succesfully' }))
+    .catch(error => res.status(400).json({ error }));
+};
