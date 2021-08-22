@@ -8,13 +8,16 @@ const passwordValidator = require('../middleware/password_validator');
 const uniqueEmail = require('../middleware/unique_email');
 const auth = require('../middleware/authorization');
 const multer = require('../middleware/multer_config');
+const canDelete = require('../middleware/delete_option');
 
 
 router.post('/auth/signup', entryValidator, uniqueEmail, passwordValidator, userCtrl.signup);
 router.post('/auth/login', entryValidator, userCtrl.login);
-router.get('/account/:id', auth, userCtrl.account);
-router.put('/account/:id', auth, multer, userCtrl.updateAccount);
-router.put('/account/:id/avatar', multer, userCtrl.updateAvatar); // add auth upon integration
+router.get('/auth/account/:id', auth, userCtrl.account);
+router.put('/auth/account/:id', auth, multer, userCtrl.updateAccount);
+router.put('/auth/account/:id/avatar', multer, userCtrl.updateAvatar); // add auth upon integration
+router.get('/account/:id', auth, canDelete, userCtrl.account);
+//router.delete('/account/:id', auth, userCtrl.account);
 
 
 module.exports = router;

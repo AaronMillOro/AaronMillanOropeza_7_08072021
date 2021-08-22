@@ -15,17 +15,21 @@ module.exports = (req, res, next) => {
       console.log('Allowed to delete anything');
       next();
     } else {
-      Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'userId'] })
-        .then(post => {
-          if (post.userId === decodedToken.userId){ 
-            res.locals.canDelete = true;
-            console.log('Allowed to delete');
-            next(); 
-          } else {
-            next();
-          }
-        })
-        .catch(error => res.status(401).json({error}) );
+      if (!req.body.postId) {
+        next(); // to be reusable in other GET user route
+      } else {
+        Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'userId'] })
+          .then(post => {
+            if (post.userId === decodedToken.userId){ 
+              res.locals.canDelete = true;
+              console.log('Allowed to delete');
+              next(); 
+            } else {
+              next();
+            }
+          })
+          .catch(error => res.status(401).json({error}) );
+      }
     }
   } catch (error) {
     res.status(401).json({ error });

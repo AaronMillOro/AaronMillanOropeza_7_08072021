@@ -52,9 +52,6 @@ exports.login = (req, res, next) => {
 
 // GET user account
 exports.account = (req, res, next) => {
-  if ( req.body.userId !== parseInt(req.params.id) ) {
-    return res.status(401).json({error: 'Unauthorized request'});
-  }
   User.findOne({ 
     where: { id: req.params.id }, 
     attributes: ['id', 'email', 'pseudo', 'job', 'imageUrl', 'createdAt'] 
@@ -63,7 +60,7 @@ exports.account = (req, res, next) => {
       if (!user){
         return res.status(404).json({ error: 'User not found'});
       }
-      res.status(200).json({ user: user })
+      res.status(200).json({ user: user, canDelete: res.locals.canDelete })
     })
     .catch(error => res.status(404).json({ error }));
 };
