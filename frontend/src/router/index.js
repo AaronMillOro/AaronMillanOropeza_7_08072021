@@ -1,11 +1,32 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import Index from '../views/Index.vue'
+import Login from '../views/Login.vue'
+import Signup from '../views/Signup.vue'
+import Profile from '../views/Profile.vue'
+import ProfileImage from '../views/ProfileImage.vue'
+import ProfileInfo from '../views/ProfileInfo.vue'
+import Post from '../views/Post.vue'
+
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Index',
+    component: Index,
+    meta: {
+      title: 'Groupomania | Actualités',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Accueil au réseau interne de Groupomania'
+        }
+      ]
+    },
+  },
+  {
+    path: '/auth/signup/',
+    name: 'Signup',
+    component: Signup,
     meta: {
       title: 'Groupomania | Inscription',
       metaTags: [
@@ -14,15 +35,12 @@ const routes = [
           content: 'Formulaire d\'inscription au réseau interne de Groupomania'
         }
       ]
-    }
+    },
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/auth/login/',
+    name: 'Login',
+    component: Login,
     meta: {
       title: 'Groupomania | Se connecter',
       metaTags: [
@@ -31,12 +49,69 @@ const routes = [
           content: 'Connexion au réseau interne de Groupomania'
         }
       ]
-    }
-  }
+    },
+  },
+  {
+    path: '/auth/account/:id(\\d+)/',
+    name: 'Profile',
+    component: Profile,
+    meta: {
+      title: 'Groupomania | Espace utilisateur',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Informations de mon compte'
+        }
+      ]
+    },
+  },
+  {
+    path: '/auth/account/:id(\\d+)/avatar/',
+    name: 'ProfileImage',
+    component: ProfileImage,
+    meta: {
+      title: 'Groupomania | Modifier \'image à aficher',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Changement d\'image à afficher'
+        }
+      ]
+    },
+  }, 
+  {
+    path: '/account/:id(\\d+)/',
+    name: 'ProfileInfo',
+    component: ProfileInfo,
+    meta: {
+      title: 'Groupomania | Informations de mon collaborateur',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Montre les information d\'un autre utilisateur'
+        }
+      ]
+    },
+  },
+  {
+    path: '/posts/:id_post(\\d+)/',
+    name: 'Post',
+    component: Post,
+    meta: {
+      title: 'Groupomania | Information de la publication',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Montre les information d\'une publication'
+        }
+      ]
+    },
+  },
+
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
 
