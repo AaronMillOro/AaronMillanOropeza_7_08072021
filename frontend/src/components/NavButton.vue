@@ -1,5 +1,5 @@
 <template>
-  <router-link to={url} class="btn btn-outline-light px-2 mx-2">{{ name }}</router-link>
+  <router-link to={url} class="btn btn-outline-light px-2 m-2">{{ name }}</router-link>
 </template>
 
 <script>
