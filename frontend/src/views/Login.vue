@@ -6,7 +6,7 @@
         <div class="col col-sm-2"></div>
         <div class="col col-sm-8">
           <router-view> 
-            <SignForm color="danger" text="Connexion" />
+            <LoginForm color="danger" text="Connexion" />
           </router-view>
         </div>
         <div class="col col-sm-2"></div>
@@ -18,13 +18,13 @@
 
 <script>
 import Title from "@/components/Title.vue";
-import SignForm from "@/components/SignForm.vue";
+import LoginForm from "@/components/LoginForm.vue";
 
 export default {
   name: 'Login',
   components: {
     Title,
-    SignForm,
+    LoginForm,
   }
 }
 </script>
