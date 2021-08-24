@@ -6,7 +6,7 @@
   <nav class="my-2 my-0 mr3">
     <NavButton to="/auth/account/" name="Mon compte"/>
     <NavButton to="/" name="Actualités"/>
-    <NavButton to="/auth/login/" name="Déconnexion"/>
+    <NavButton to="/auth/login/" @click="logout" name="Déconnexion"/>
   </nav>
 </header>
 </template>
@@ -19,6 +19,14 @@ export default {
   components: {
     NavButton,
   },
+  methods: {
+    logout(e) {
+      e.preventDefault();
+      localStorage.removeItem('userId');
+      localStorage.removeItem('token');
+      alert('A bientôt');
+    }
+  }
 }
 </script>
 
