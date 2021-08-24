@@ -67,13 +67,14 @@ export default {
       };
       const headers = {
         'Content-type': 'application/json',
-      };      
+      };
       axios.post('http://localhost:3000/api/auth/login', User, { headers })
         .then(res => {
           const userId = res.data.userId;
           const token = res.data.token;
           localStorage.setItem('userId', userId);
           localStorage.setItem('token', token);
+          axios.defaults.headers.Authorization = "Bearer " + localStorage.getItem('token');
           self.$router.push({ name: 'Index'});
         })
         .catch(error => {
