@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import NavButton from '@/components/NavButton.vue'
+import NavButton from '@/components/NavButton.vue';
 
 export default {
   name: 'Header',

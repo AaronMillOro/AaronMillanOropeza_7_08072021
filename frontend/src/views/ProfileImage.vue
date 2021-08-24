@@ -14,7 +14,7 @@
 
 
 <script>
-import Title from "@/components/Title.vue"
+import Title from "@/components/Title.vue";
 
 export default {
   name: 'ProfileImage',

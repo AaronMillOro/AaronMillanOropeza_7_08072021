@@ -11,12 +11,12 @@ export default {
   },
   computed : {
     isLogged : function() {
-      const currentPath = this.$route.name
-      const paths = ["Index", "Profile", "ProfileImage", "ProfileInfo", "Post"]
+      const currentPath = this.$route.name;
+      const paths = ["Index", "Profile", "ProfileImage", "ProfileInfo", "Post"];
       if (paths.includes(currentPath)) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     }
   }
