@@ -11,7 +11,7 @@ const canDelete = require('../middleware/delete_option');
 const likeOrDislike = require('../middleware/like_or_dislike');
 
 router.get('/posts', hasAccess, postCtrl.allPosts);
-router.post('/posts', auth, multer, postCtrl.createPost);
+router.post('/posts', hasAccess, multer, postCtrl.createPost);
 router.get('/posts/:id_post', hasAccess, likeOrDislike, canDelete, postCtrl.displayPost);
 router.delete('/posts/:id_post', hasAccess, allowedToDelete, postCtrl.deletePost);
 router.put('/posts/:id_post', auth, postCtrl.likePost);

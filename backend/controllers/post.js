@@ -20,16 +20,19 @@ exports.allPosts = (req, res, next) => {
 
 // POST new publication
 exports.createPost = (req, res, next) => {
+
   if (!req.body.text) {
     return res.status(400).json({ message: 'Text field is required'});
   }
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
   const post = req.file ? {
     text: req.body.text,
-    userId: req.body.userId,
+    userId: decodedToken.userId,
     imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`
   } : { 
     text: req.body.text,
-    userId: req.body.userId,
+    userId: decodedToken.userId,
   };
   Post.create(post)
     .then( res.status(201).json({ message: 'New post' }) )
