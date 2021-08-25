@@ -40,7 +40,7 @@ exports.createPost = (req, res, next) => {
 };
 
 
-// GET a specific publication and its related opinions
+// GET a specific publication and its related opinions, counter updated in case of removed opinions
 exports.displayPost = (req, res, next) => {
   Post.findOne({ 
     where: {id: parseInt(req.params.id_post) }, 
@@ -57,17 +57,23 @@ exports.displayPost = (req, res, next) => {
         }
       })
         .then(opinions => {
-          const fullOpinions = opinions; 
-          fullOpinions.forEach(opinion => {
-            const token = req.headers.authorization.split(' ')[1];
-            const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-            if ((opinion.userId === decodedToken.userId) || (res.locals.canDelete === 'all')){
-              opinion.dataValues.canDelete = true;
-            } else {
-              opinion.dataValues.canDelete = false;
-            }
-          });
-          res.status(200).json({ post: post, heart: res.locals.heart, canDelete: res.locals.canDelete, opinions: fullOpinions })
+          // update of counter
+          const new_counter = opinions.length;
+          Post.update({ countOpinions: new_counter }, { where: {id: post.id} })
+            .then( () => {
+              const fullOpinions = opinions; 
+              fullOpinions.forEach(opinion => {
+                const token = req.headers.authorization.split(' ')[1];
+                const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+                if ((opinion.userId === decodedToken.userId) || (res.locals.canDelete === 'all')){
+                  opinion.dataValues.canDelete = true;
+                } else {
+                  opinion.dataValues.canDelete = false;
+                }
+              });
+              res.status(200).json({ post: post, heart: res.locals.heart, canDelete: res.locals.canDelete, opinions: fullOpinions })
+            })
+            .catch( error => res.status(404).json({ error }) );
         })
         .catch(error => res.status(404).json({ error }));
     })
