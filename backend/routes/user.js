@@ -15,8 +15,8 @@ const allowedToDelete = require('../middleware/delete_permission');
 router.post('/auth/signup', entryValidator, uniqueEmail, passwordValidator, userCtrl.signup);
 router.post('/auth/login', entryValidator, userCtrl.login);
 router.get('/auth/account/:id', auth, userCtrl.account);
-router.put('/auth/account/:id', auth, multer, userCtrl.updateAccount);
-router.put('/auth/account/:id/avatar', multer, userCtrl.updateAvatar); // add auth upon integration
+router.put('/auth/account/:id', auth, userCtrl.updateAccount);
+router.put('/auth/account/:id/avatar', auth, multer, userCtrl.updateAvatar);
 router.get('/account/:id', hasAccess, canDelete, userCtrl.account);
 router.delete('/account/:id', auth, allowedToDelete, userCtrl.deleteAccount); // only accessible to admin
 

@@ -68,7 +68,7 @@ exports.displayPost = (req, res, next) => {
         })
         .catch(error => res.status(404).json({ error }));
     })
-    .catch(error => res.status(404).json({ message: 'Publication not found', error: error }));
+    .catch(error => res.status(404).json({ error }));
 };
 
 

@@ -88,7 +88,7 @@ exports.updateAccount = (req, res, next) => {
 // POST modify user avatar
 exports.updateAvatar = (req, res, next) => {
   User.findOne({ 
-    where: { id: req.params.id }, 
+    where: { id: parseInt(req.params.id) }, 
     attributes: ['id', 'imageUrl'] 
   })
     .then(user => {
