@@ -10,7 +10,12 @@ module.exports = (req, res, next) => {
     }
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     if( parseInt(req.params.id) !== decodedToken.userId ) {
-      return res.status(403).json({error: 'Non-valid userId'});
+      if (decodedToken.isAdmin === true) {
+        console.log('Auth control passed');
+        next();
+      } else {
+        return res.status(403).json({error: 'Non-valid user permission'});
+      }
     } else {
       console.log('Auth control passed');
       next();

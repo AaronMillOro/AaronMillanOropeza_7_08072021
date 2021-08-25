@@ -15,8 +15,8 @@ module.exports = (req, res, next) => {
       next();
     } else {
       // check cases for opinion or post
-      if(req.body.opinionId) {
-        Opinion.findOne({ where: {id: req.body.opinionId}, attributes: ['id', 'userId'] })
+      if(req.params.id_opinion) {
+        Opinion.findOne({ where: {id: parseInt(req.params.id_opinion)}, attributes: ['id', 'userId'] })
           .then(opinion => {
             if (opinion.userId === decodedToken.userId){ 
               console.log('Allowed to delete opinion');
@@ -27,7 +27,7 @@ module.exports = (req, res, next) => {
           })
           .catch(error => res.status(401).json({ error }));
       } else {
-        Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'userId'] })
+        Post.findOne({ where: {id: parseInt(req.params.id_post)}, attributes: ['id', 'userId'] })
           .then(post => {
             if (post.userId === decodedToken.userId){ 
               console.log('Allowed to delete post');
