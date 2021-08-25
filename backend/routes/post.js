@@ -15,7 +15,7 @@ router.post('/posts', hasAccess, multer, postCtrl.createPost);
 router.get('/posts/:id_post', hasAccess, likeOrDislike, canDelete, postCtrl.displayPost);
 router.delete('/posts/:id_post', hasAccess, allowedToDelete, postCtrl.deletePost);
 router.put('/posts/:id_post', auth, postCtrl.likePost);
-router.post('/posts/:id_post', auth, postCtrl.createOpinion);
+router.post('/posts/:id_post', hasAccess, postCtrl.createOpinion);
 router.delete('/posts/:id_post/:id_opinion', hasAccess, allowedToDelete, postCtrl.deleteOpinion);
 
 

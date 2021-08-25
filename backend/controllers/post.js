@@ -105,15 +105,17 @@ exports.createOpinion = (req, res, next) => {
   if (!req.body.content) {
     return res.status(400).json({ message: 'Content is required'});
   }
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
   const opinion = {
     content: req.body.content,
-    userId: req.body.userId,
-    postId: req.body.postId
+    userId: decodedToken.userId,
+    postId: req.params.id_post
   };
   Opinion.create(opinion)
     .then(() => {
-      // To update opinions counter in Post instances
-      Post.findOne({ where: {id: req.body.postId} })
+      // To update opinions counter in Post instance
+      Post.findOne({ where: {id: req.params.id_post} })
         .then(post => {
           const counter = (post.countOpinions + 1);
           Post.update({ countOpinions: counter }, { where: {id: post.id} })
