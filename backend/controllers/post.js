@@ -74,7 +74,7 @@ exports.displayPost = (req, res, next) => {
 
 // DELETE a publication
 exports.deletePost = (req, res, next) => {
-  Post.destroy({ where: {id: req.body.postId} })
+  Post.destroy({ where: {id: req.params.id_post} })
     .then(() => res.status(200).json({ message: 'Post removed succesfully' }))
     .catch(error => res.status(400).json({ error }));
 };
@@ -82,9 +82,9 @@ exports.deletePost = (req, res, next) => {
 
 // DELETE an opinion
 exports.deleteOpinion = (req, res, next) => {
-  Opinion.destroy({ where: {id: req.body.opinionId} })
+  Opinion.destroy({ where: {id: req.params.id_opinion} })
     .then(() => {
-      Post.findOne({ where: {id: req.body.postId} })
+      Post.findOne({ where: {id: req.params.id_post} })
         .then(post => {
           const counter = (post.countOpinions - 1);
           Post.update({ countOpinions: counter }, { where: {id: post.id} })
