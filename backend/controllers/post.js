@@ -129,19 +129,18 @@ exports.createOpinion = (req, res, next) => {
 
 
 // PUT like or dislike in a publication
-exports.likePost = (req, res, next) => {
+exports.likePost = (req, res, next) => {  
   try {
-    if (!req.body.postId){
-      return res.status(400).json({ message: 'Publication identifier is required'});
-    }
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     if ( (req.body.like === 1) || (req.body.like === 0) ){
-      Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'likes', 'usersLike'] })
+      Post.findOne({ where: {id: req.params.id_post}, attributes: ['id', 'likes', 'usersLike'] })
         .then(post => {
           // first like
           let likes = post.likes;
           if (post.usersLike === null) {
             let arrayLikes = [];
-            arrayLikes.push(req.body.userId);
+            arrayLikes.push(decodedToken.userId);
             const new_usersLike = JSON.stringify(arrayLikes);
             likes += 1;
             Post.update({ usersLike: new_usersLike, likes: likes }, { where: {id: post.id} })
@@ -150,8 +149,8 @@ exports.likePost = (req, res, next) => {
           } else {
             let arrayLikes = JSON.parse(post.usersLike);
             // Can dislike
-            if (arrayLikes.includes(req.body.userId)) {
-              arrayLikes = arrayLikes.filter(item => item !== req.body.userId);
+            if (arrayLikes.includes(decodedToken.userId)) {
+              arrayLikes = arrayLikes.filter(item => item !== decodedToken.userId);
               const new_usersLike = JSON.stringify(arrayLikes);
               likes -= 1;
               Post.update({ usersLike: new_usersLike, likes: likes }, { where: {id: post.id} })
@@ -159,7 +158,7 @@ exports.likePost = (req, res, next) => {
                 .catch( error => res.status(404).json({ error }) );
             } else {
               // Can like
-              arrayLikes.push(req.body.userId);
+              arrayLikes.push(decodedToken.userId);
               const new_usersLike = JSON.stringify(arrayLikes);
               likes += 1;
               Post.update({ usersLike: new_usersLike, likes: likes }, { where: {id: post.id} })
