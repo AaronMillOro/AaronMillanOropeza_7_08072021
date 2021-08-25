@@ -1,16 +1,21 @@
 const db = require('../models/index');
 const Post = db.Post;
+const dotenv = require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
 
 module.exports = (req, res, next) => {
   try {
-    Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'usersLike'] })
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    Post.findOne({ where: {id: parseInt(req.params.id_post)}, attributes: ['id', 'usersLike'] })
       .then(post => {
         const usersLike = JSON.parse(post.usersLike);
         if (usersLike === null) {
           res.locals.heart = "off_heart";
           next();
         }
-        else if(usersLike.includes(req.body.userId)){
+        else if(usersLike.includes(decodedToken.userId)){
           res.locals.heart = "on_heart";
           next();
         } else {

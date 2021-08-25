@@ -15,10 +15,10 @@ module.exports = (req, res, next) => {
       console.log('Allowed to delete anything');
       next();
     } else {
-      if (!req.body.postId) {
-        next(); // to be reusable in other GET user route
+      if (!req.params.id_post) {
+        next(); // to be reusable in GET any user account
       } else {
-        Post.findOne({ where: {id: req.body.postId}, attributes: ['id', 'userId'] })
+        Post.findOne({ where: {id: parseInt(req.params.id_post)}, attributes: ['id', 'userId'] })
           .then(post => {
             if (post.userId === decodedToken.userId){ 
               res.locals.canDelete = true;

@@ -2,6 +2,8 @@ const db = require('../models/index');
 const Post = db.Post;
 const Opinion = db.Opinion;
 const User = db.User;
+const dotenv = require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
 
 // GET all posts
@@ -38,7 +40,7 @@ exports.createPost = (req, res, next) => {
 // GET a specific publication and its related opinions
 exports.displayPost = (req, res, next) => {
   Post.findOne({ 
-    where: {id: req.body.postId}, 
+    where: {id: parseInt(req.params.id_post) }, 
     attributes: ['id', 'text', 'imageUrl', 'likes', 'usersLike', 'countOpinions', 'createdAt', 'userId'],
     include: {model: User, attributes: ['id', 'pseudo', 'imageUrl']}
   })
@@ -54,7 +56,9 @@ exports.displayPost = (req, res, next) => {
         .then(opinions => {
           const fullOpinions = opinions; 
           fullOpinions.forEach(opinion => {
-            if ((opinion.userId === req.body.userId) || (res.locals.canDelete === 'all')){
+            const token = req.headers.authorization.split(' ')[1];
+            const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+            if ((opinion.userId === decodedToken.userId) || (res.locals.canDelete === 'all')){
               opinion.dataValues.canDelete = true;
             } else {
               opinion.dataValues.canDelete = false;
@@ -64,7 +68,7 @@ exports.displayPost = (req, res, next) => {
         })
         .catch(error => res.status(404).json({ error }));
     })
-    .catch(error => res.status(404).json({ error }));
+    .catch(error => res.status(404).json({ message: 'Publication not found', error: error }));
 };
 
 
