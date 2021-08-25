@@ -9,13 +9,9 @@ module.exports = (req, res, next) => {
       return res.status(403).json( {error: 'Access denied'} );
     }
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-    if (!req.body.userId) {
-      return res.status(401).json({error: 'Unauthorized request'});
-    }
-    else if( req.body.userId !== decodedToken.userId ) {
+    if( parseInt(req.params.id) !== decodedToken.userId ) {
       return res.status(403).json({error: 'Non-valid userId'});
     } else {
-      req.body.userId = decodedToken.userId;
       console.log('Auth control passed');
       next();
     }
