@@ -3,35 +3,39 @@
     <div v-for="post in Posts" :key="post">
       <div class="card border-info my-4">
         <div class="card-header border-info bg-dark">
-          <div class="d-flex flex-row align-items-center">
-            <div class="mr-2">
-              <img src="img/icon-left-font-monochrome-white.4891a9da.svg" :alt="'user_post_' + post.id" class="rounded-circle" width="80" v-if="post.User.imageUrl === null">
-              <img :src="post.User.imageUrl" :alt="'user_post_' + post.id" class="rounded-circle" width="80" v-else>
+          <router-link :to="{ name: 'ProfileInfo', params: { id: post.userId} }">
+            <div class="d-flex flex-row align-items-center">
+              <div class="mr-2">
+                <img src="img/icon-left-font-monochrome-white.4891a9da.svg" :alt="'user_post_' + post.id" class="rounded-circle" width="80" v-if="post.User.imageUrl === null">
+                <img :src="post.User.imageUrl" :alt="'user_post_' + post.id" class="rounded-circle" width="80" v-else>
+              </div>
+              <div class="ml-2">
+                <div class="font-weight-bold m-0 text-white">{{ post.User.pseudo }}</div>
+                <p class="card-text justify-content-center">
+                  <small class="text-white">
+                    {{ post.createdAt.split('T')[0] }} à {{ post.createdAt.split('T')[1].split('.')[0] }}
+                  </small>
+                </p>
+              </div>
             </div>
-            <div class="ml-2">
-              <div class="font-weight-bold m-0 text-white">{{ post.User.pseudo }}</div>
-              <p class="card-text justify-content-center">
-                <small class="text-white">
-                  {{ post.createdAt.split('T')[0] }} à {{ post.createdAt.split('T')[1].split('.')[0] }}
-                </small>
-              </p>
+          </router-link>
+        </div>
+        <router-link :to="{ name: 'Post', params: { id_post: post.id} }">
+          <div class="card-body">
+            <p class="card-text text-center text-dark">{{ post.text }}</p>
+            <div class="text-center"> <img v-show="post.imageUrl !== null" class="img-fluid" :src="post.imageUrl" height="200" :alt="'image_pub_'+ post.id"> </div>
+          </div>
+          <div class="card-footer border-info bg-white">
+            <div class="d-flex flex-row align-items-center">
+              <div class="mr-2">
+                <p class="card-text mr-0"> {{ post.likes }} likes</p> 
+              </div>
+              <div class="ml-3">
+                <p class="card-text mr-0"> {{ post.countOpinions }} commentaires</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card-body">
-          <p class="card-text text-center text-dark">{{ post.text }}</p>
-          <div class="text-center"> <img v-show="post.imageUrl !== null" class="img-fluid" :src="post.imageUrl" height="200" :alt="'image_pub_'+ post.id"> </div>
-        </div>
-        <div class="card-footer border-info bg-white">
-          <div class="d-flex flex-row align-items-center">
-            <div class="mr-2">
-              <p class="card-text mr-0"> {{ post.likes }} likes</p> 
-            </div>
-            <div class="ml-3">
-              <p class="card-text mr-0"> {{ post.countOpinions }} commentaires</p>
-            </div>
-          </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
