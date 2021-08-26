@@ -53,7 +53,7 @@ const routes = [
     },
   },
   {
-    path: '/auth/account/:id(\\d+)/',
+    path: '/auth/account/:id/',
     name: 'Profile',
     component: Profile,
     meta: {
@@ -67,7 +67,7 @@ const routes = [
     },
   },
   {
-    path: '/auth/account/:id(\\d+)/avatar/',
+    path: '/auth/account/:id/avatar/',
     name: 'ProfileImage',
     component: ProfileImage,
     meta: {
@@ -81,7 +81,7 @@ const routes = [
     },
   }, 
   {
-    path: '/account/:id(\\d+)/',
+    path: '/account/:id/',
     name: 'ProfileInfo',
     component: ProfileInfo,
     meta: {
@@ -95,7 +95,7 @@ const routes = [
     },
   },
   {
-    path: '/posts/:id_post(\\d+)/',
+    path: '/posts/:id_post/',
     name: 'Post',
     component: Post,
     meta: {
