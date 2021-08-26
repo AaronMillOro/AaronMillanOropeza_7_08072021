@@ -74,7 +74,6 @@ export default {
           const token = res.data.token;
           localStorage.setItem('userId', userId);
           localStorage.setItem('token', token);
-          axios.defaults.headers.Authorization = "Bearer " + localStorage.getItem('token');
           self.$router.push({ name: 'Index'});
         })
         .catch(error => {
