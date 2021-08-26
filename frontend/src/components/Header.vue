@@ -4,7 +4,7 @@
     <img src="../assets/icon-left-font-monochrome-white.svg" width="250" height="100" class="d-inline-block align-top" alt="Groupomania logo">
   </div>
   <nav class="my-2 my-0 mr3">
-    <NavButton to="/auth/account/" name="Mon compte"/>
+    <NavButton to="/auth/account/id/" name="Mon compte"/>
     <NavButton to="/" name="Actualités"/>
     <NavButton to="/auth/login/" @click="logout" name="Déconnexion"/>
   </nav>
