@@ -6,6 +6,7 @@
         <div class="col col-sm-1"></div>
         <div class="col col-sm-10">
           <router-view>
+            <AddPost/>
             <Posts/> 
           </router-view>
         </div>
@@ -18,12 +19,14 @@
 <script>
 import Title from "@/components/Title.vue";
 import Posts from "@/components/Posts.vue";
+import AddPost from "@/components/AddPost.vue";
 
 export default {
   name: 'Index',
   components: {
     Title,
     Posts,
+    AddPost,
   },
 }
 </script>
