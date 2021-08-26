@@ -10,13 +10,17 @@
             </div>
             <div class="ml-2">
               <div class="font-weight-bold m-0 text-white">{{ post.User.pseudo }}</div>
-              <p class="card-text"><small class="text-white">{{ post.createdAt }}</small></p>
+              <p class="card-text justify-content-center">
+                <small class="text-white">
+                  {{ post.createdAt.split('T')[0] }} à {{ post.createdAt.split('T')[1].split('.')[0] }}
+                </small>
+              </p>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <p class="card-text text-dark">{{ post.text }}</p>
-          <img v-show="post.imageUrl !== null" class="img-fluid" :src="post.imageUrl" height="250" alt="image test">
+          <p class="card-text text-center text-dark">{{ post.text }}</p>
+          <div class="text-center"> <img v-show="post.imageUrl !== null" class="img-fluid" :src="post.imageUrl" height="200" :alt="'image_pub_'+ post.id"> </div>
         </div>
         <div class="card-footer border-info bg-white">
           <div class="d-flex flex-row align-items-center">
