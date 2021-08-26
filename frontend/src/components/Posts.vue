@@ -1,8 +1,35 @@
 <template>
   <div>
-    
-    {{ Posts }}
-    
+    <div v-for="post in Posts" :key="post">
+      <div class="card border-info my-4">
+        <div class="card-header border-info bg-dark">
+          <div class="d-flex flex-row align-items-center">
+            <div class="mr-2">
+              <img src="img/icon-left-font-monochrome-white.4891a9da.svg" :alt="'user_post_' + post.id" class="rounded-circle" width="80" v-if="post.User.imageUrl === null">
+              <img :src="post.User.imageUrl" :alt="'user_post_' + post.id" class="rounded-circle" width="80" v-else>
+            </div>
+            <div class="ml-2">
+              <div class="font-weight-bold m-0 text-white">{{ post.User.pseudo }}</div>
+              <p class="card-text"><small class="text-white">{{ post.createdAt }}</small></p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text text-dark">{{ post.text }}</p>
+          <img v-show="post.imageUrl !== null" class="img-fluid" :src="post.imageUrl" height="250" alt="image test">
+        </div>
+        <div class="card-footer border-info bg-white">
+          <div class="d-flex flex-row align-items-center">
+            <div class="mr-2">
+              <p class="card-text mr-0"> {{ post.likes }} likes</p> 
+            </div>
+            <div class="ml-3">
+              <p class="card-text mr-0"> {{ post.countOpinions }} commentaires</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
