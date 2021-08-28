@@ -14,8 +14,8 @@
             </p>
           </div>
           <div class="mx-2 col-sm-1"> 
-            <BIconTrashFill class="text-white" v-if="this.dataPost.canDelete === true"/> 
-            <BIconTrashFill class="text-white" v-if="this.dataPost.canDelete === 'all'"/> 
+            <BIconTrashFill @click="deletePost(this.post.id)" class="text-white" v-if="this.dataPost.canDelete === true"/>
+            <BIconTrashFill @click="deletePost(this.post.id)" class="text-white" v-if="this.dataPost.canDelete === 'all'"/> 
           </div>
         </div>
       </div>
@@ -52,6 +52,27 @@ export default {
       time: ""
     };
   },
+  methods: {
+    deletePost(id_post) {
+      if (confirm('Confirmer la suppression de cette publication')) {
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        };
+        axios.delete(
+          'http://localhost:3000/api/posts/' + id_post, 
+          { headers }
+        )
+          .then(res => {
+            console.log(res);
+            this.$router.push({ name: 'Index'});
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    }
+  },
   created() {
     const headers = {
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -69,7 +90,7 @@ export default {
         return console.log(res);
       })
       .catch(error => {
-        return console.log(error)
+        return console.log(error);
       });
   }
 }
