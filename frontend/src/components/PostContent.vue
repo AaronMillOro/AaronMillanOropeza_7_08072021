@@ -29,8 +29,8 @@
             <div class="mr-2">
               <p class="card-text mr-0"> 
                 {{ this.post.likes }} 
-                <BIconHeart class="text-danger" role="img" aria-label="Heart" v-if="this.dataPost.heart === 'off_heart'" />
-                <BIconHeartFill class="text-danger" role="img" aria-label="Filled Heart" v-else/>
+                <BIconHeart class="text-danger" role="img" aria-label="Heart" v-if="this.dataPost.heart === 'off_heart'" @click="likePost(this.post.id, '1')"/>
+                <BIconHeartFill class="text-danger" role="img" aria-label="Filled Heart" v-else @click="likePost(this.post.id, '0')"/>
               </p></div>
             <div class="ml-3"> <p class="card-text mr-0"> {{ this.post.countOpinions }} commentaires</p> </div>
           </div>
@@ -86,8 +86,19 @@ export default {
     };
   },
   methods: {
-    likePost(preference){
-      
+    likePost(id_post, like){
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      };
+      axios.put('http://localhost:3000/api/posts/' + id_post, { like: parseInt(like) }, { headers })
+        .then(res => {
+          console.log(res);
+          this.$router.go(this.$router.currentRoute);
+        })
+        .catch(error => {
+          console.log(error)
+        });
     },
     deleteOpinion(id_post, id_opinion){
       if (confirm('Souhaitez-vous effacer ce commentaire?')) {
