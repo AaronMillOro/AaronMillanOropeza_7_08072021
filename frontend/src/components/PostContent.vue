@@ -54,7 +54,7 @@
               </div>
               <div class="mx-2">
                 <div class="font-weight-bold m-0 text-dark">{{ opinion.User.pseudo }}</div>
-                <p class="card-text"><small class="text-dark">19 juin 2021 à 14h06</small></p>
+                <p class="card-text"><small class="text-dark">{{ opinion.createdAt.split('T')[0] }} à {{ opinion.createdAt.split('T')[1].split('.')[0] }} </small></p>
               </div>
             </div>
             <div class="mx-2">
@@ -86,6 +86,9 @@ export default {
     };
   },
   methods: {
+    likePost(preference){
+      
+    },
     deleteOpinion(id_post, id_opinion){
       if (confirm('Souhaitez-vous effacer ce commentaire?')) {
         const headers = {
