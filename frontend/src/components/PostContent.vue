@@ -41,6 +41,19 @@
     <h2 class="text-success">Commentaires: </h2>
 
     <!--- Add Opinion -->
+    <div class="card border-danger">
+      <form @submit="newOpinion" enctype="application/json">
+        <div class="card-body">
+          <div class="input-group pb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Nouveau commentaire</span>
+            </div>
+            <textarea type="text" v-model="content" id="content" class="form-control" aria-label="Nouveau commentaire"></textarea>
+          </div>
+          <button type="submit" class="btn btn-outline-info">Publier</button>
+        </div>
+      </form>
+    </div>
 
     <!-- Previous opinions -->
     <div v-for="opinion in opinions" :key="opinion">
@@ -82,10 +95,36 @@ export default {
       post: "",
       date: "",
       time: "",
+      content: "",
       opinions: [],
     };
   },
   methods: {
+
+    newOpinion(e) {
+      e.preventDefault();
+      if(!this.content){
+        alert('Ajoutez votre opinion');
+        return;
+      }
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      };
+      axios.post(
+        'http://localhost:3000/api/posts/' + this.post.id, 
+        { content: this.content }, 
+        { headers }
+      )
+        .then(res => {
+          console.log(res);
+          this.$router.go(this.$router.currentRoute)
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
+
     likePost(id_post, like){
       const headers = {
         'Content-Type': 'application/json',
@@ -100,6 +139,7 @@ export default {
           console.log(error)
         });
     },
+
     deleteOpinion(id_post, id_opinion){
       if (confirm('Souhaitez-vous effacer ce commentaire?')) {
         const headers = {
@@ -119,6 +159,7 @@ export default {
           });
       }
     },
+
     deletePost(id_post) {
       if (confirm('Confirmer la suppression de cette publication')) {
         const headers = {
@@ -139,6 +180,7 @@ export default {
       }
     }
   },
+
   created() {
     const headers = {
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
