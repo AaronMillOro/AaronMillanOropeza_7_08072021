@@ -198,7 +198,8 @@ export default {
         return console.log(res);
       })
       .catch(error => {
-        return console.log(error);
+        console.log(error);
+        this.$router.push({ name: 'Index' });
       });
   }
 }
