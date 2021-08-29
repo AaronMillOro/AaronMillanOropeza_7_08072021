@@ -2,11 +2,12 @@
   <div>
     <Title titleName="Mon profile"/>
     <div class="container-fluid pb-4">
-      <router-view> </router-view>
       <div class="row">
-        <div class="col col-sm-1"></div>
-        <div class="col col-sm-10"> </div>
-        <div class="col col-sm-1"></div>
+        <div class="col col-sm-12"> 
+          <router-view>
+            <ProfileForm/>
+          </router-view>
+        </div>
       </div>
     </div>
   </div>
@@ -15,11 +16,13 @@
 
 <script>
 import Title from "@/components/Title.vue";
+import ProfileForm from "@/components/ProfileForm.vue";
 
 export default {
   name: 'Profile',
   components: {
-    Title
+    Title,
+    ProfileForm
   }
 }
 </script>
