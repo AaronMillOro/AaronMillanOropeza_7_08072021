@@ -7,10 +7,10 @@
       </div>
 
       <div class="col-md-auto card">  
-        <form>
+        <form @submit="updateInfo">
           <div class="form-group row py-2">
-            <label for="username" class="col-sm-4 col-form-label"><b>Nom à aficher</b></label>
-            <div class="col-md-8"> <input type="text" class="form-control" id="username" v-model="name"></div>
+            <label for="pseudo" class="col-sm-4 col-form-label"><b>Nom à aficher</b></label>
+            <div class="col-md-8"> <input type="text" class="form-control" id="pseudo" v-model="name"></div>
           </div>
           <div class="form-group row py-2">
             <label for="job" class="col-sm-4 col-form-label"><b>Poste</b></label>
@@ -45,6 +45,36 @@ export default {
       job: '',
     }
   },
+  methods: {
+    
+    updateInfo(e) {
+      e.preventDefault();
+      if(!this.name){
+        alert("Nom à afficher obligatoire!");
+        return;
+      }
+      if(!this.job){
+        alert("Ajoutez votre poste!");
+        return;
+      }
+      const userInfo = {
+        pseudo: this.name,
+        job: this.job
+      };
+      const headers = {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      };
+      axios.put('http://localhost:3000/api/auth/account/' + this.user.id + '/', userInfo, { headers })
+        .then(res => {
+          this.$router.go(this.$router.currentRoute);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  },
+
   created() {
     const headers = { 
       'Authorization': 'Bearer ' + localStorage.getItem('token')
