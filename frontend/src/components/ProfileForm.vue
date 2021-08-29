@@ -3,7 +3,9 @@
     <div class="row justify-content-md-center">
       <div class="col col-md-3 card"> 
         <img class="card-img-top" :src="this.user.imageUrl" alt="profile image" v-if="this.user.imageUrl !== null">
-        <div class="card-body"> <a href="" class="card-link">Modifier image</a> </div>
+        <div class="card-body"> 
+          <button @click="goToImage" class="btn btn-info">Modifier image</button> 
+        </div>
       </div>
 
       <div class="col-md-auto card">  
@@ -46,7 +48,7 @@ export default {
     }
   },
   methods: {
-    
+
     updateInfo(e) {
       e.preventDefault();
       if(!this.name){
@@ -72,7 +74,13 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+
+    goToImage(){
+      const urlInfo = '/auth/account/' + this.user.id + '/avatar/';
+      return this.$router.push({ name: 'ProfileImage', params: {id: this.user.id} });
     }
+
   },
 
   created() {
