@@ -54,7 +54,7 @@ exports.login = (req, res, next) => {
 exports.account = (req, res, next) => {
   User.findOne({ 
     where: { id: req.params.id }, 
-    attributes: ['id', 'email', 'pseudo', 'job', 'imageUrl', 'createdAt'] 
+    attributes: ['id', 'email', 'pseudo', 'job', 'imageUrl', 'createdAt', 'updatedAt'] 
   })
     .then(user => {
       if (!user){
