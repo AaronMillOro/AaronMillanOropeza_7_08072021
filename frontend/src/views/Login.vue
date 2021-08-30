@@ -9,7 +9,7 @@
           <div class="col col-sm-8">
             <router-view> 
               <LoginForm color="danger" text="Connexion" />
-              <div> <router-link to="/auth/signup/" class="text-info">Créer un compte</router-link> </div>
+              <div> <router-link to="/auth/signup/" class="text-white bg-secondary p-2">Créer un compte</router-link> </div>
             </router-view>
           </div>
           <div class="col col-sm-2"></div>

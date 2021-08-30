@@ -2,9 +2,9 @@
   <div class="container pb-5">
     <div class="row justify-content-md-center">
       <div class="col col-md-3 card"> 
-        <img class="card-img-top" :src="this.user.imageUrl" alt="profile image" v-if="this.user.imageUrl !== null">
+        <img class="card-img-top" :src="this.user.imageUrl" :alt="'profile image of ' + this.user.pseudo" v-if="this.user.imageUrl !== null">
         <div class="card-body"> 
-          <button @click="goToImage" class="btn btn-info">Modifier image</button> 
+          <button @click="goToImage" class="btn btn-dark">Changer mon image</button> 
         </div>
       </div>
 

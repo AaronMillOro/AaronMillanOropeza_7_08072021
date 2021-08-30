@@ -9,7 +9,7 @@
           <div class="col col-sm-8">
             <router-view> 
               <SignForm color="success" text="Inscription" />
-              <div> <router-link to="/auth/login/" class="text-info">J'ai déjà un compte</router-link> </div>
+              <div> <router-link to="/auth/login/" class="text-white bg-secondary p-2">J'ai déjà un compte</router-link> </div>
             </router-view>
           </div>
           <div class="col col-sm-2"></div>

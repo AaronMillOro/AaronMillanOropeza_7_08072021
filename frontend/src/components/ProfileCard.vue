@@ -4,7 +4,7 @@
     <div class="row justify-content-md-center">
       <div class="col col-md-3 card bg-dark"> 
         <img src="/img/icon-left-font-monochrome-white.4891a9da.svg" width="200" height="200" class="d-inline-block align-top img-responsive" alt="user image" v-if="this.user.imageUrl === null"/>
-        <img :src="this.user.imageUrl" width="200" height="200" class="d-inline-block align-top img-responsive" alt="user image" v-else/>
+        <img :src="this.user.imageUrl" width="200" height="200" class="d-inline-block align-top img-responsive" :alt="'profile image of ' + this.user.pseudo" v-else/>
       </div>
       <div class="col-md-auto card">  
         <p class="pt-3"><b>Nom à afficher:</b> {{ this.user.pseudo }} </p>

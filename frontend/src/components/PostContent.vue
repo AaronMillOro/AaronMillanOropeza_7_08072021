@@ -50,7 +50,7 @@
             </div>
             <textarea type="text" v-model="content" id="content" class="form-control" aria-label="Nouveau commentaire"></textarea>
           </div>
-          <button type="submit" class="btn btn-outline-info">Publier</button>
+          <button type="submit" class="btn btn-outline-dark">Publier</button>
         </div>
       </form>
     </div>

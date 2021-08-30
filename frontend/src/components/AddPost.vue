@@ -12,13 +12,13 @@
         <div class="input-group">
           <div class="custom-file">
             <input type="file" class="custom-file-input" accept="image/*" id="image" ref="image" v-on:change="handleFileUpload()">
-            <label class="custom-file-label" for="image" v-if="image === ''">Image <small class="text-info">*facultative</small></label>
+            <label class="custom-file-label" for="image" v-if="image === ''">Image <small class="text-white bg-secondary px-1">*facultative</small></label>
             <label class="custom-file-label text-danger" for="image" v-else :key="image">{{ image.name }} </label>
           </div>
         </div>
       </div>
       <div class="card-footer">
-        <button type="submit" class="btn btn-outline-info">Partager</button>
+        <button type="submit" class="btn btn-outline-dark">Partager</button>
       </div>
     </form>
   </div>

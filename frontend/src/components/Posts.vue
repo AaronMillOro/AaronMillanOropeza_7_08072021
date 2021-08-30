@@ -28,10 +28,10 @@
           <div class="card-footer border-info bg-white">
             <div class="d-flex flex-row align-items-center">
               <div class="mr-2">
-                <p class="card-text mr-0"> {{ post.likes }} likes</p> 
+                <p class="card-text mr-0 text-dark"> {{ post.likes }} likes</p> 
               </div>
               <div class="ml-3">
-                <p class="card-text mr-0"> {{ post.countOpinions }} commentaires</p>
+                <p class="card-text mr-0 text-dark"> {{ post.countOpinions }} commentaires</p>
               </div>
             </div>
           </div>
