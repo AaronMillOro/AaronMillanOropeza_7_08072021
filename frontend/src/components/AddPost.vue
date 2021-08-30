@@ -5,14 +5,14 @@
       <div class="card-body">
         <div class="input-group pb-2">
           <div class="input-group-prepend">
-            <span class="input-group-text">Commentaire</span>
+            <span class="input-group-text">Ajouter un message</span>
           </div>
           <textarea type="text" v-model='text' class="form-control" id="text" aria-label="Nouveau commentaire"></textarea>
         </div>
         <div class="input-group">
           <div class="custom-file">
             <input type="file" class="custom-file-input" accept="image/*" id="image" ref="image" v-on:change="handleFileUpload()">
-            <label class="custom-file-label" for="image" v-if="image === ''">Choisissez une image <small class="text-info">*facultatif</small></label>
+            <label class="custom-file-label" for="image" v-if="image === ''">Image <small class="text-info">*facultative</small></label>
             <label class="custom-file-label text-danger" for="image" v-else :key="image">{{ image.name }} </label>
           </div>
         </div>

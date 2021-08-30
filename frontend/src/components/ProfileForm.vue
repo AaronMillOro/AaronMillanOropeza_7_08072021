@@ -18,8 +18,8 @@
             <label for="job" class="col-sm-4 col-form-label"><b>Poste</b></label>
             <div class="col-sm-8"> <input type="text" class="form-control" id="job" v-model="job"></div>
           </div>
-          <p class="py-2 text-center">Dernière actualisation le <b>{{ this.date }}</b></p>
-          <p class="py-2 text-center">Membre depuis le <b>{{ this.dateInscription }}</b></p>
+          <p class="py-2 text-center">Dernière actualisation le <br><b>{{ this.date }}</b></p>
+          <p class="py-2 text-center">Membre depuis le <br><b>{{ this.dateInscription }}</b></p>
           <div class="form-group row">
             <div class="col-md-12">
               <button type="submit" class="btn btn-outline-info btn-lg btn-block">Mettre à jour</button>

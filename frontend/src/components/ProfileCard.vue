@@ -10,7 +10,7 @@
         <p class="pt-3"><b>Nom à afficher:</b> {{ this.user.pseudo }} </p>
         <p><b>Poste:</b> {{ this.user.job }}</p>
         <p><b>Email:</b> {{ this.user.email }}</p>
-        <p><b>Compte crée le:</b> {{ this.date }}</p>
+        <p><b>Compte crée le: <br></b> {{ this.date }}</p>
 
         <!-- Option available for admin -->
         <div class="col-sm-12" v-if="this.canDelete === 'all'">
