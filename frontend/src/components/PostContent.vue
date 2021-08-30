@@ -3,18 +3,20 @@
     <!-- Post information --> 
     <div class="card border-info my-4">
       <div class="card-header border-info bg-dark">
-        <div class="d-flex align-items-center">
-          <div class="mr-2">
-            <img :src="this.user.imageUrl" :alt="'user_post_' + this.post.id" class="rounded-circle" width="80" v-if="this.user.imageUrl !== null">
-            <img src="/img/icon-left-font-monochrome-white.4891a9da.svg" :alt="'user_post_' + this.post.id" class="rounded-circle" width="80" v-else>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex flex-row align-items-center">
+            <div class="mr-3">
+              <img :src="this.user.imageUrl" :alt="'user_post_' + this.post.id" class="rounded-circle" width="80" v-if="this.user.imageUrl !== null">
+              <img src="/img/icon-left-font-monochrome-white.4891a9da.svg" :alt="'user_post_' + this.post.id" class="rounded-circle" width="80" v-else>
+            </div>
+            <div class="mx-2">
+              <div class="font-weight-bold m-0 text-white">{{ this.user.pseudo }}</div>
+              <p class="card-text justify-content-center">
+                <small class="text-white"> {{ this.date }} à {{ this.time }} </small>
+              </p>
+            </div>
           </div>
-          <div class="ml-2">
-            <div class="font-weight-bold m-0 text-white">{{ this.user.pseudo }}</div>
-            <p class="card-text justify-content-center">
-              <small class="text-white"> {{ this.date }} à {{ this.time }} </small>
-            </p>
-          </div>
-          <div class="m-auto">
+          <div class="mx-2">
             <BIconTrashFill @click="deletePost(this.post.id)" class="text-white" v-if="this.dataPost.canDelete === true"/>
             <BIconTrashFill @click="deletePost(this.post.id)" class="text-white" v-if="this.dataPost.canDelete === 'all'"/> 
           </div>
@@ -62,12 +64,16 @@
           <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex flex-row align-items-center">
               <div class="mr-2">
-                <img :src="opinion.User.imageUrl" :alt="'user_opinion_' + opinion.id" class="rounded-circle" width="80" v-if="opinion.User.imageUrl !== null">
-                <img src="/img/icon-left-font-monochrome-white.4891a9da.svg" :alt="'user_opinion_' + opinion.id" class="rounded-circle bg-dark" width="80" v-else>
+                <router-link :to="{ name: 'ProfileInfo', params: {id: opinion.userId} }">
+                  <img :src="opinion.User.imageUrl" :alt="'user_opinion_' + opinion.id" class="rounded-circle" width="80" v-if="opinion.User.imageUrl !== null">
+                  <img src="/img/icon-left-font-monochrome-white.4891a9da.svg" :alt="'user_opinion_' + opinion.id" class="rounded-circle bg-dark" width="80" v-else>
+                </router-link>
               </div>
               <div class="mx-2">
-                <div class="font-weight-bold m-0 text-dark">{{ opinion.User.pseudo }}</div>
-                <p class="card-text"><small class="text-dark">{{ opinion.createdAt.split('T')[0] }} à {{ opinion.createdAt.split('T')[1].split('.')[0] }} </small></p>
+                <router-link :to="{ name: 'ProfileInfo', params: {id: opinion.userId} }">
+                  <div class="font-weight-bold m-0 text-dark">{{ opinion.User.pseudo }}</div>
+                  <p class="card-text"><small class="text-dark">{{ opinion.createdAt.split('T')[0] }} à {{ opinion.createdAt.split('T')[1].split('.')[0] }} </small></p>
+                </router-link>
               </div>
             </div>
             <div class="mx-2">
